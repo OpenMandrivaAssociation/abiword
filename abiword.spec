@@ -149,8 +149,9 @@ Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-%{version}.tar.bz2
 Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-%{version}.tar.bz2
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.bz2
-Patch0:     %name-2.5.1-poppler.patch
+Patch0:     %name-plugins-2.5.1-poppler.patch
 Patch1:     abiword-2.4.5-xap_UnixApp.patch
+Patch2:     %name-plugins-2.5.1-ots-compile.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:  ImageMagick
 BuildRequires:  bzip2-devel
@@ -500,6 +501,7 @@ Plugin to import and edit MathML documents
 
 cd %{name}-plugins-%{version}
 %patch0 -p0 -b .poppler
+%patch2 -p0 -b .otsbuild
 #%patch1 -p1
  
 %build
