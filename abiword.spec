@@ -162,7 +162,7 @@ BuildRequires:  libgnomeprintui-devel
 BuildRequires:  libgsf-devel >= 1.13.3
 BuildRequires:  link-grammar-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  goffice21-devel
+BuildRequires:  goffice-devel >= 0.3.6
 BuildRequires:  libhowl-devel
 BuildRequires:  ots-devel
 BuildRequires:  gtkmathview >= 0.7.5
