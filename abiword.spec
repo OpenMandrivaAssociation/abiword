@@ -16,7 +16,6 @@
 %define enable_festvox 0
 %define enable_gda 0
 %define enable_gdict 1
-%define enable_goffice 1
 %define enable_shell 1
 %define enable_urldict 1
 %define enable_wikipedia 1
@@ -52,12 +51,6 @@
 %define plugin_gdict --enable-gdict
 %else
 %define plugin_gdict --disable-gdict
-%endif
-
-%if %{enable_goffice}
-%define plugin_goffice --enable-abigoffice
-%else
-%define plugin_goffice --disable-abigoffice
 %endif
 
 %if %{enable_babelfish}
@@ -133,8 +126,8 @@
 %endif
 
 %define version_flag ABI_BUILD_VERSION=%version
-%define Aname AbiWord-2.6
-%define Sname AbiSuite-2.6
+%define Aname %{name}-2.5
+%define Sname AbiSuite-2.5
 %define iconname abiword.png  
 %define release 1
 
@@ -169,18 +162,42 @@ BuildRequires:  libgnomeprintui-devel
 BuildRequires:  libgsf-devel >= 1.13.3
 BuildRequires:  link-grammar-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  goffice21-devel
+BuildRequires:  libhowl-devel
+BuildRequires:  ots-devel
+BuildRequires:  gtkmathview >= 0.7.5
+BuildRequires:  libgtkmathview-devel >= 0.7.5
 %if %{enable_eps} 
 BuildRequires:  libeps0-devel
 %endif
-%if %{enable_goffice} 
-BuildRequires:  goffice-devel >= 0.3.6
+%if %{enable_abicommand}
+BuildRequires:  libtermcap-devel 
+BuildRequires:  libreadline-devel
 %endif
-Obsoletes:  %{name}-plugin-gdkpixbuf
-Provides:  %{name}-plugin-gdkpixbuf
- 
-
-%description
-BuildRequires:  link-grammar-devel
+%if %{enable_perl}
+BuildRequires:  perl >= 5.005
+%endif
+%if %{enable_gdict}
+BuildRequires:  gdict
+%endif
+%if %{enable_aiksaurus}
+BuildRequires:  aiksaurusgtk-devel
+%endif
+%if %{enable_gda}
+BuildRequires:  gnome-db2.0-devel
+%endif
+%if %{enable_rsvg}
+BuildRequires:  librsvg-devel
+%endif 
+%if %{enable_pdf}
+BuildRequires:  libpoppler-devel
+%endif
+%if %{enable_wordperfect}
+BuildRequires:  libwpd-devel >= 0.8.0
+%endif 
+%if %{enable_abipsion}
+BuildRequires:  libpsiconv-devel
+%endif
 Obsoletes:  %{name}-plugin-gdkpixbuf
 Provides:  %{name}-plugin-gdkpixbuf
  
@@ -215,6 +232,15 @@ for example abiword-doc-de.
 Abiword with the GNOME front-end is part of the GNOME Office Suite. 
 See http://www.gnomeoffice.org for details.
 
+%package devel
+Summary:	Devel files for Abiword
+Group:	Development/Other
+Requires:	%{name} = %{version}
+
+%description devel
+This pacakage contains devel files for Abiword, mainly header files
+and pkg files.
+
 %package doc-de
 Summary:    German documentation and helpfiles for Abiword
 Group:      Office
@@ -247,13 +273,21 @@ Requires:   %{name}
 %description doc-pl
 Polish documentation and helpfiles for Abiword.
 
+%if %{enable_abicollab}
+%package plugin-abicollab
+Summary:    A real-time collaborative editing feature to AbiWord
+Group:      Office
+Requires:   %{name} = %{version}
+
+%description plugin-abicollab
+This plugin offers a real-time collaborative editing feature to AbiWord.
+%endif
+
 %if %{enable_abicommand}
 %package plugin-abicommand
 Summary:    This plugin offers a command line interface to AbiWord
 Group:      Office
 Requires:   %{name} = %{version}
-BuildRequires:  libtermcap-devel 
-BuildRequires:  libreadline-devel
 
 %description plugin-abicommand
 This plugin offers a command line interface to AbiWord.
@@ -264,7 +298,6 @@ This plugin offers a command line interface to AbiWord.
 Summary:    Perl Bindings Module
 Group:      Development/Libraries
 Requires:   perl >= 5.005
-BuildRequires:  perl >= 5.005
 Requires:   %{name} = %{version}
 
 %description perl
@@ -307,7 +340,6 @@ Plugin for festvox
 %package plugin-gdict
 Summary:    Plugin to allow abiword to use gdict
 Group:      Office
-BuildRequires:  gdict
 Requires:   %{name} = %{version} 
 
 %description plugin-gdict
@@ -357,7 +389,6 @@ Plugin to allow abiword to connect with freetranslation.
 %package plugin-aiksaurus
 Summary:    Plugin to allow abiword to connect with AikSaurus
 Group:      Office
-BuildRequires:  aiksaurusgtk-devel
 Requires:   %{name} = %{version} 
 
 %description plugin-aiksaurus
@@ -370,7 +401,6 @@ Summary:    Plugin to summarize text
 Group:      Office
 Requires:   ots
 Requires:   %{name} = %{version}
-BuildRequires:  ots-devel
 
 %description plugin-ots
 Installing this plugin will allow abiword to summarize text with
@@ -384,7 +414,6 @@ Requires:   gda2.0
 Requires:   gnome-db2.0
 Requires:   %{name} = %{version}
 
-BuildRequires:  gnome-db2.0-devel
 %description plugin-gda
 Installing this plugin will allow abiword to import from databases through
 gda and gnome-db. 
@@ -394,9 +423,6 @@ gda and gnome-db.
 Summary:    Plugins to allow abiword to import images
 Group:      Office
 Requires:   %{name} = %{version}
-%if %{enable_rsvg}
-BuildRequires:  librsvg-devel
-%endif 
 
 %description plugin-graphics
 Installing these plugins will allow abiword to import several image types,
@@ -406,12 +432,6 @@ like jpeg, bmp or rsvg.
 Summary:    Plugins to allow abiword to import file types from other wordprocessors
 Group:      Office
 Requires:   %{name} = %{version}
-%if %{enable_pdf}
-BuildRequires:  libpoppler-devel
-%endif
-%if %{enable_wordperfect}
-BuildRequires:  libwpd-devel >= 0.8.0
-%endif 
 
 %description plugin-impexp
 Installing these plugins will allow abiword to import and/or export file
@@ -442,35 +462,25 @@ New plugin template for a notification style plugin.
 Can be used to make a dashbaord plugin
 %endif
 
-%if %{enable_goffice}
-%package plugin-abigoffice
-Summary:    Plugin for integrate Gnome Office components
-Group:      Office
-Requires:   %{name} = %{version}  
-
-%description plugin-abigoffice
-Enables AbiWord to embed Gnome Office Charts and Components.
-%endif
-
 %if %{enable_abipsion}
 %package plugin-abipsion
 Summary:    Plugin allowing import/export from Psion PDA
 Group:      Office
-BuildRequires:  libpsiconv-devel
+
 %description plugin-abipsion
 Plugin allowing import/export from Psion PDA
 %endif
 
-%package plugin-abigochart
-Summary:    Plugin to create Gnome Office charts
+%package plugin-abigoffice
+Summary:    Plugin to create Gnome Office components
 Group:      Office
-BuildRequires:  goffice21-devel
-BuildRequires:  libhowl-devel
 Requires:   %{name} = %{version}
 Requires:   goffice = 0.2.1
+Provides:	%{name}-abigochar = %{version}-%{release}
+Obsoletes:	%{name}-abigochar
 
-%description plugin-abigochart
-Plugin allowing the creation of Gnome Office charts
+%description plugin-abigoffice
+Plugin allowing the creation of Gnome Office components
 
 %package plugin-abigrammar
 Summary:    Plugin to allow grammar checking
@@ -481,20 +491,24 @@ Requires:   link-grammar
 Plugin to allow grammar checking of English documents using
 link-grammar as a syntactic parser of English.
 
-
 %package plugin-abimathview
 Summary:    Plugin to import and edit MathML documents
 Group:      Office
-BuildRequires:  gtkmathview >= 0.7.5
-BuildRequires:  libgtkmathview-devel >= 0.7.5
 Requires:   gtkmathview >= 0.7.5
 
 %description plugin-abimathview
 Plugin to import and edit MathML documents
 
+%package plugin-olpctoolbar
+Summary:    Floating toolbar for using on the OLPC system
+Group:      Office
+Requires:   %{name} = %{version}
+
+%description plugin-olpctoolbar
+Floating toolbar for using on the OLPC system
 
 %prep
-%setup -q -n %{name}-%{version} -a 0
+%setup -q -n %{name}-%{version}
 %setup -D -T -q -a 1
 %setup -D -T -q -a 2
 %setup -D -T -q -a 3
@@ -517,59 +531,56 @@ rm -Rf libpng
 
 # The plugins
 cd %{name}-plugins-%{version}
-%configure2_5x --host=%{_target_platform} --disable-rpath \
-    --enable-all --with-abiword=../ \
-    %{plugin_abicollab} %{plugin_goffice} \
+%configure2_5x --host=%{_target_platform} --target=%{_target} --disable-rpath \
+    --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
     %{plugin_babelfish} %{plugin_festvox} %{plugin_freetranslation} \
-    %{plugin_gda} %{plugin_gdict} %{plugin_gdkpixbuf} %{plugin_google} \
+    %{plugin_gda} %{plugin_gdict} %{plugin_google} \
     %{plugin_shell} %{plugin_tests} \
     %{plugin_urldict} %{plugin_wikipedia} \
-    %{plugin_pdf} %{plugin_eg}
+    %{plugin_pdf}
 
 %make
+cd -
 
-# The extra stuff
-cd %{name}-extras-%{version}
-%configure2_5x
-%make 
+# The extra stuff don't need build acturally
+# cd ../%{name}-extras-%{version}
 
 # now make the docs
 cd %{name}-docs-%{version}
-ABI_DOC_PROG=$(pwd)/../abi/src/wp/main/unix/%{Aname} ./make-html.sh
-
+ABI_DOC_PROG=$(pwd)/../src/wp/main/unix/%{name} ./make-html.sh
+cd -
 
 %install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
-cd abi
+#cd abi
 
 %makeinstall_std
 
-cd ../abiword-plugins
-%make install  DESTDIR=$RPM_BUILD_ROOT
+cd %{name}-plugins-%{version}
+%make install DESTDIR=$RPM_BUILD_ROOT
+cd -
+
+# install extra stuff
+cd %{name}-extras-%{version}
+# cliparts
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/clipart
+install -m 644 clipart/*.png $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/clipart
+# templates
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/templates
+install -m 644 templates/*.awt $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/templates
+# dictionaries
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/dictionary
+install -m 644 dictionary/*.xml $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/dictionary
 cd -
 
 # install the docs
-cd ../abiword-docs
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{Sname}/AbiWord/help
-cp -rp help/* $RPM_BUILD_ROOT/%{_datadir}/%{Sname}/AbiWord/help/
+cd %{name}-docs-%{version}
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help
+cp -rp help/* $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help/
 # some of the help dirs have bad perms (#109261)
-find $RPM_BUILD_ROOT/%{_datadir}/%{Sname}/AbiWord/help/ -type d -exec chmod -c o+rx {} \;
+find $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help/ -type d -exec chmod -c o+rx {} \;
 cd -
-
-# Icons
-mkdir -p %{buildroot}{%{_miconsdir},%{_iconsdir},%{_liconsdir},%{_menudir}}
-install -m 644 abiword_48.png %{buildroot}%{_liconsdir}/%{iconname}
-convert abiword_48.png -geometry 32x32 %{buildroot}%{_iconsdir}/%{iconname}
-convert abiword_48.png  -geometry 16x16 %{buildroot}%{_miconsdir}/%{iconname} 
-
-# Menu entry 
-cat >$RPM_BUILD_ROOT%_menudir/%name <<EOF
-?package(%name): command="%_bindir/abiword" section="Office/Wordprocessors" \
-icon="%{iconname}" needs="x11" title="AbiWord" \
-longtitle="Lean and fast full-featured word processor" \
-xdg="true"
-EOF
 
 desktop-file-install --vendor="" \
 --remove-category="Application" \
@@ -578,18 +589,18 @@ desktop-file-install --vendor="" \
 --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
  
 #remove unpackaged files
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{Sname}/Nautilus_View_AbiWord.oaf \
- $RPM_BUILD_ROOT%{_datadir}/%{Sname}/nautilus-abiword-content-view-ui.xml \
- $RPM_BUILD_ROOT%{_datadir}/%{Sname}/AbiWord/system.profile \
- $RPM_BUILD_ROOT%{_datadir}/%{Sname}/AbiWord.exe.MANIFEST \
+rm -f $RPM_BUILD_ROOT%{_datadir}/%{Aname}/Nautilus_View_AbiWord.oaf \
+ $RPM_BUILD_ROOT%{_datadir}/%{Aname}/nautilus-abiword-content-view-ui.xml \
+ $RPM_BUILD_ROOT%{_datadir}/%{Aname}/system.profile \
+ $RPM_BUILD_ROOT%{_datadir}/%{Aname}/AbiWord.exe.MANIFEST \
  $RPM_BUILD_ROOT%{_bindir}/ttftool \
  $RPM_BUILD_ROOT%{_bindir}/ttfadmin.sh
 rm -rf $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/*.la
 
 # add uninstalled files
 %if %{enable_abicommand}
-cd ../abidistfiles
-cp GNOME_AbiWord_Control_2_4.server $RPM_BUILD_ROOT%{_libdir}/bonobo/servers/
+#cd ../abidistfiles
+#cp GNOME_AbiWord_Control_2_4.server $RPM_BUILD_ROOT%{_libdir}/bonobo/servers/
 %else
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %endif
@@ -600,49 +611,50 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 
 %files
 %defattr(-,root,root)
-%doc abi/user/wp/readme.txt abi/BiDiReadme.txt abi/COPYING abi/COPYRIGHT.TXT abi/CREDITS.TXT abi/abi2po.pl
-%_bindir/*
-%_menudir/%name
-%dir %_datadir/%{Sname}
-%_datadir/%{Sname}/clipart
-%_datadir/%{Sname}/icons
-%_datadir/%{Sname}/templates
-%{_miconsdir}/%{iconname}
-%{_iconsdir}/%{iconname}
-%{_liconsdir}/%{iconname}
-%_datadir/%{Sname}/AbiWord/readme.txt 
-%_datadir/%{Sname}/AbiWord/strings
-%_datadir/%{Sname}/AbiWord/scripts
-%_datadir/%{Sname}/AbiWord/system.profile-* 
-%_datadir/%{Sname}/AbiWord/glade/*
-%attr(644,root,root) %_datadir/icons/abiword_48.png
-%attr(644,root,root) %_datadir/applications/abiword.desktop
+%doc user/wp/readme.txt BiDiReadme.txt COPYING COPYRIGHT.TXT CREDITS.TXT abi2po.pl
+%{_bindir}/*
+%{_datadir}/%{Aname}/readme.txt 
+%{_datadir}/%{Aname}/strings
+%{_datadir}/%{Aname}/scripts
+%{_datadir}/%{Aname}/system.profile-* 
+%{_datadir}/%{Aname}/glade/*
+%{_datadir}/%{Aname}/clipart/*
+%{_datadir}/%{Aname}/templates/*
+%{_datadir}/%{Aname}/dictionary/*
+%{_datadir}/mime-info/%{name}.keys
+%_datadir/icons/abiword_48.png
+%_datadir/applications/abiword.desktop
 
 %files doc-de
 %defattr(-,root,root)
-%doc abiword-docs/ABW/de-DE
+#%doc %{name}-docs-%{version}/ABW/de-DE
 
 %files doc-en
 %defattr(-,root,root)
-%doc abiword-docs/screenshots/GNOME/en-GB abiword-docs/Tutorials abiword-docs/Manual/en
-%doc abiword-docs/Changelog abiword-docs/ABW/en-US
-%doc abi/docs/*.abw abi/docs/*.txt abi/docs/status/*.xsl abi/docs/status/*.xml
-%doc %_datadir/%{Sname}/AbiWord/help/en-US
+#%doc %{name}-docs-%{version}/screenshots/GNOME/en-GB %{name}-docs-%{version}/Tutorials %{name}-docs-%{version}/Manual/en
+%doc %{name}-docs-%{version}/ABW/en-US
+%doc docs/*.abw docs/*.txt docs/status/*.xsl docs/status/*.xml
+%_datadir/%{Aname}/help/en-US
 
 %files doc-fr
 %defattr(-,root,root)
-%doc abiword-docs/ABW/fr-FR
-%doc %_datadir/%{Sname}/AbiWord/help/fr-FR
+%doc %{name}-docs-%{version}/ABW/fr-FR
+%_datadir/%{Aname}/help/fr-FR
 
 %files doc-pl
 %defattr(-,root,root)
-%doc abiword-docs/ABW/pl-PL
-%doc %_datadir/%{Sname}/AbiWord/help/pl-PL
+%doc %{name}-docs-%{version}/ABW/pl-PL
+%_datadir/%{Aname}/help/pl-PL
+
+%if %{enable_abicollab}
+%files plugin-abicollab
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCollab.*
+%endif
 
 %if %{enable_abicommand}
 %files plugin-abicommand
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCommand.*
-%attr(-,root,root) %{_libdir}/bonobo/servers/GNOME_AbiWord_Control_2_4.server
+#%attr(-,root,root) %{_libdir}/bonobo/servers/GNOME_AbiWord_Control_2_4.server
 %endif
 
 %if %{enable_gdict}
@@ -718,7 +730,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiSDW.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiWML.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiXHTML.*
-%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiBZ2.*
+#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiBZ2.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenDocument.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenWriter.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCAPI.*
@@ -732,6 +744,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiHRText.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiHancom.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiISCII.so
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOPML.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMIF.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiNroff.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiT602.so
@@ -751,13 +764,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiPsion.*
 %endif
 
-%if %{enable_goffice}
 %files plugin-abigoffice
-%attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiGoffice.*
-%endif
-
-%files plugin-abigochart
-%attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiGOChart.*
+%attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiGOffice.*
 
 %files plugin-abigrammar
 %attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiGrammar.*
@@ -765,12 +773,21 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %files plugin-abimathview
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMathView.so
 
+%files plugin-olpctoolbar
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOlpcToolbar.*
+
+%files devel
+%attr(-,root,root)
+%{_includedir}/%{Aname}/*.h
+%{_libdir}/pkgconfig/%{Aname}.pc
+
 %post
 %{update_menus}
 %{update_desktop_database}
+%{update_mime_database}
 
 %postun
 %{clean_menus}
 %{clean_desktop_database}
-
+%{clean_mime_database}
 
