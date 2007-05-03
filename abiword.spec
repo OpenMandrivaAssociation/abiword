@@ -132,7 +132,9 @@ Group:      Office
 URL:        http://www.abisource.com/
 License:    GPL
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.bz2
-
+Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-%{version}.tar.bz2
+Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-%{version}.tar.bz2
+Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.bz2
 Patch0:     %name-2.4.4-poppler.patch
 Patch1:     abiword-2.4.5-xap_UnixApp.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
