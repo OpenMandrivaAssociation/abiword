@@ -119,14 +119,14 @@
 %endif
 
 %define version_flag ABI_BUILD_VERSION=%version
-%define Aname AbiWord-2.4
-%define Sname AbiSuite-2.4
+%define Aname AbiWord-2.6
+%define Sname AbiSuite-2.6
 %define iconname abiword.png  
-%define release 2
+%define release 1
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
-Version:    2.4.6
+Version:    2.5.1
 Release:    %mkrel %release
 Group:      Office
 URL:        http://www.abisource.com/
