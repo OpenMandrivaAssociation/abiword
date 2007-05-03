@@ -129,7 +129,7 @@
 %define Aname %{name}-2.5
 %define Sname AbiSuite-2.5
 %define iconname abiword.png  
-%define release 1
+%define release 2
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
@@ -144,7 +144,6 @@ Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.bz2
 Patch0:     %name-plugins-2.5.1-poppler.patch
 Patch1:     abiword-2.4.5-xap_UnixApp.patch
-Patch2:     %name-plugins-2.5.1-ots-compile.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:  ImageMagick
 BuildRequires:  bzip2-devel
@@ -164,7 +163,7 @@ BuildRequires:  link-grammar-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  goffice-devel >= 0.3.6
 BuildRequires:  libhowl-devel
-BuildRequires:  ots-devel
+BuildRequires:  ots-devel >= 0.5.0
 BuildRequires:  gtkmathview >= 0.7.5
 BuildRequires:  libgtkmathview-devel >= 0.7.5
 %if %{enable_eps} 
@@ -515,7 +514,6 @@ Floating toolbar for using on the OLPC system
 
 cd %{name}-plugins-%{version}
 %patch0 -p0 -b .poppler
-%patch2 -p0 -b .otsbuild
 #%patch1 -p1
  
 %build
