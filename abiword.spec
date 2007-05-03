@@ -5,33 +5,41 @@
 %define enable_jpeg 1
 
 # PLUGIN OPTIONS: 1 for yes, 0 for no
+%define enable_abicollab 1
 %define enable_abicommand 1
-%define enable_aiksaurus 1
-%define enable_babelfish 1
-%define enable_urldict 1
-%define enable_wikipedia 1
-%define enable_freetranslation 1
-%define enable_festvox 0
-%define enable_gdict 1
-%define enable_gda 0
-%define enable_shell 1
-%define enable_eg 1
 %define enable_abidash 1
 %define enable_abipsion 1
+%define enable_aiksaurus 1
+%define enable_babelfish 1
+%define enable_eg 1
+%define enable_freetranslation 1
+%define enable_festvox 0
+%define enable_gda 0
+%define enable_gdict 1
+%define enable_goffice 1
+%define enable_shell 1
+%define enable_urldict 1
+%define enable_wikipedia 1
 # import/export
 %define enable_pdf 1
 %define enable_wordperfect 1
 # graphics  
 %define enable_rsvg 1
 #search
-%define enable_google 1
 %define enable_eps 0
+%define enable_google 1
 
 %if %{enable_debug}
 # This makes sure the binaries are UNSTRIPPED!
 %define __os_install_post       %{nil}
 # This gives extra debuggin and huge binaries
 %{expand:%%define optflags %{optflags} %([ ! $DEBUG ] && echo '-g3')}
+%endif
+
+%if %{enable_abicollab}
+%define plugin_abicollab --enable-abicollab
+%else
+%define plugin_abicollab --disable-abicollab
 %endif
 
 %if %{enable_aiksaurus}
@@ -44,6 +52,12 @@
 %define plugin_gdict --enable-gdict
 %else
 %define plugin_gdict --disable-gdict
+%endif
+
+%if %{enable_goffice}
+%define plugin_goffice --enable-abigoffice
+%else
+%define plugin_goffice --disable-abigoffice
 %endif
 
 %if %{enable_babelfish}
@@ -156,6 +170,9 @@ BuildRequires:  link-grammar-devel
 BuildRequires:  desktop-file-utils
 %if %{enable_eps} 
 BuildRequires:  libeps0-devel
+%endif
+%if %{enable_goffice} 
+BuildRequires:  goffice-devel >= 0.3.6
 %endif
 Obsoletes:  %{name}-plugin-gdkpixbuf
 Provides:  %{name}-plugin-gdkpixbuf
@@ -424,6 +441,16 @@ New plugin template for a notification style plugin.
 Can be used to make a dashbaord plugin
 %endif
 
+%if %{enable_goffice}
+%package plugin-abigoffice
+Summary:    Plugin for integrate Gnome Office components
+Group:      Office
+Requires:   %{name} = %{version}  
+
+%description plugin-abigoffice
+Enables AbiWord to embed Gnome Office Charts and Components.
+%endif
+
 %if %{enable_abipsion}
 %package plugin-abipsion
 Summary:    Plugin allowing import/export from Psion PDA
@@ -471,13 +498,14 @@ Plugin to import and edit MathML documents
 %setup -D -T -q -a 2
 %setup -D -T -q -a 3
 
-cd ../%{name}-plugins-%{version}
+cd %{name}-plugins-%{version}
 %patch0 -p0 -b .poppler
 #%patch1 -p1
  
 %build
 rm -Rf libpng
-cd abi  
+
+# The main applications
 %configure2_5x --enable-gnome --with-sys-wv 
 
 %make %{version_flag} ABI_OPT_DEBUG=%{enable_debug} \
@@ -485,9 +513,11 @@ cd abi
     ABI_OPT_PERL=%{enable_perl} \
     ABI_OPT_OPTIMIZE=%{enable_optimize}
 
-cd ../abiword-plugins/
+# The plugins
+cd %{name}-plugins-%{version}
 %configure2_5x --host=%{_target_platform} --disable-rpath \
-    --enable-all \
+    --enable-all --with-abiword=../ \
+    %{plugin_abicollab} %{plugin_goffice} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
     %{plugin_babelfish} %{plugin_festvox} %{plugin_freetranslation} \
     %{plugin_gda} %{plugin_gdict} %{plugin_gdkpixbuf} %{plugin_google} \
@@ -495,10 +525,15 @@ cd ../abiword-plugins/
     %{plugin_urldict} %{plugin_wikipedia} \
     %{plugin_pdf} %{plugin_eg}
 
+%make
+
+# The extra stuff
+cd %{name}-extras-%{version}
+%configure2_5x
 %make 
 
 # now make the docs
-cd ../abiword-docs
+cd %{name}-docs-%{version}
 ABI_DOC_PROG=$(pwd)/../abi/src/wp/main/unix/%{Aname} ./make-html.sh
 
 
@@ -712,6 +747,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %if %{enable_abipsion}
 %files plugin-abipsion
 %attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiPsion.*
+%endif
+
+%if %{enable_goffice}
+%files plugin-abigoffice
+%attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiGoffice.*
 %endif
 
 %files plugin-abigochart
