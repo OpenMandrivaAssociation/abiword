@@ -398,7 +398,7 @@ library (currently English only).
 %package plugin-ots
 Summary:    Plugin to summarize text
 Group:      Office
-Requires:   ots
+Requires:   ots >= 0.5.0
 Requires:   %{name} = %{version}
 
 %description plugin-ots
