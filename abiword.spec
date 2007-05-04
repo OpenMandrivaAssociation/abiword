@@ -166,6 +166,7 @@ BuildRequires:  libhowl-devel
 BuildRequires:  ots-devel >= 0.5.0
 BuildRequires:  gtkmathview >= 0.7.5
 BuildRequires:  libgtkmathview-devel >= 0.7.5
+BuildRequires:	gucharmap-devel
 %if %{enable_eps} 
 BuildRequires:  libeps0-devel
 %endif
