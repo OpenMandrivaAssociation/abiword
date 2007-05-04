@@ -16,7 +16,7 @@
 %define enable_festvox 0
 %define enable_gda 0
 %define enable_gdict 1
-%define enable_goffice 0
+%define enable_goffice 1
 %define enable_shell 1
 %define enable_urldict 1
 %define enable_wikipedia 1
@@ -130,7 +130,7 @@
 %define Aname %{name}-2.5
 %define Sname AbiSuite-2.5
 %define iconname abiword.png  
-%define release 2
+%define release 3
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
@@ -145,6 +145,9 @@ Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.bz2
 Patch0:     %name-plugins-2.5.1-poppler.patch
 Patch1:     abiword-2.4.5-xap_UnixApp.patch
+# Patch2,3 from upstream bug report #10977
+Patch2:     %{name}-2.5.1-fix-goffice-0.4.0-build.patch
+Patch3:     %{name}-plugins-2.5.1-fix-goffice-0.4.0-build.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:  ImageMagick
 BuildRequires:  bzip2-devel
@@ -187,7 +190,7 @@ BuildRequires:  aiksaurusgtk-devel
 BuildRequires:  gnome-db2.0-devel
 %endif
 %if %{enable_goffice}
-BuildRequires: goffice-devel >= 0.3.6
+BuildRequires: goffice-devel >= 0.4.0
 %endif
 %if %{enable_rsvg}
 BuildRequires:  librsvg-devel
@@ -469,6 +472,7 @@ Can be used to make a dashbaord plugin
 %package plugin-abipsion
 Summary:    Plugin allowing import/export from Psion PDA
 Group:      Office
+Requires:	%{name} = %{version}
 
 %description plugin-abipsion
 Plugin allowing import/export from Psion PDA
@@ -479,7 +483,7 @@ Plugin allowing import/export from Psion PDA
 Summary:    Plugin to create Gnome Office components
 Group:      Office
 Requires:   %{name} = %{version}
-Requires:   goffice
+Requires:   goffice >= 0.4.0
 Provides:	%{name}-abigochar = %{version}-%{release}
 Obsoletes:	%{name}-abigochar
 
@@ -491,6 +495,7 @@ Plugin allowing the creation of Gnome Office components
 Summary:    Plugin to allow grammar checking
 Group:      Office
 Requires:   link-grammar
+Requires:   %{name} = %{version}
 
 %description plugin-abigrammar
 Plugin to allow grammar checking of English documents using
@@ -500,6 +505,7 @@ link-grammar as a syntactic parser of English.
 Summary:    Plugin to import and edit MathML documents
 Group:      Office
 Requires:   gtkmathview >= 0.7.5
+Requires:   %{name} = %{version}
 
 %description plugin-abimathview
 Plugin to import and edit MathML documents
@@ -518,9 +524,12 @@ Floating toolbar for using on the OLPC system
 %setup -D -T -q -a 2
 %setup -D -T -q -a 3
 
+%patch2 -p0 -b .goffice
+
 cd %{name}-plugins-%{version}
 %patch0 -p0 -b .poppler
-#%patch1 -p1
+%patch3 -p0 -b .goffice
+cd -
  
 %build
 rm -Rf libpng
