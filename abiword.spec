@@ -16,6 +16,7 @@
 %define enable_festvox 0
 %define enable_gda 0
 %define enable_gdict 1
+%define enable_goffice 0
 %define enable_shell 1
 %define enable_urldict 1
 %define enable_wikipedia 1
@@ -161,7 +162,6 @@ BuildRequires:  libgnomeprintui-devel
 BuildRequires:  libgsf-devel >= 1.13.3
 BuildRequires:  link-grammar-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  goffice-devel >= 0.3.6
 BuildRequires:  libhowl-devel
 BuildRequires:  ots-devel >= 0.5.0
 BuildRequires:  gtkmathview >= 0.7.5
@@ -184,6 +184,9 @@ BuildRequires:  aiksaurusgtk-devel
 %endif
 %if %{enable_gda}
 BuildRequires:  gnome-db2.0-devel
+%endif
+%if %{enable_goffice}
+BuildRequires: goffice-devel >= 0.3.6
 %endif
 %if %{enable_rsvg}
 BuildRequires:  librsvg-devel
@@ -470,16 +473,18 @@ Group:      Office
 Plugin allowing import/export from Psion PDA
 %endif
 
+%if %{enable_goffice}
 %package plugin-abigoffice
 Summary:    Plugin to create Gnome Office components
 Group:      Office
 Requires:   %{name} = %{version}
-Requires:   goffice = 0.2.1
+Requires:   goffice
 Provides:	%{name}-abigochar = %{version}-%{release}
 Obsoletes:	%{name}-abigochar
 
 %description plugin-abigoffice
 Plugin allowing the creation of Gnome Office components
+%endif
 
 %package plugin-abigrammar
 Summary:    Plugin to allow grammar checking
@@ -762,8 +767,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiPsion.*
 %endif
 
+%if %{enable_goffice}
 %files plugin-abigoffice
 %attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiGOffice.*
+%endif
 
 %files plugin-abigrammar
 %attr(-,root,root) %_libdir/%{Aname}/plugins/libAbiGrammar.*
