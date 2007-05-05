@@ -143,12 +143,15 @@ Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-%{version}.tar.bz2
 Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-%{version}.tar.bz2
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.bz2
+Source4:    %{name}-plugins-%{version}-autogen.sh
+Source5:    %{name}-plugins-%{version}-nextgen.sh
 Patch0:     %name-plugins-2.5.1-poppler.patch
 Patch1:     abiword-2.4.5-xap_UnixApp.patch
 # Patch2,3 from upstream bug report #10977
 Patch2:     %{name}-2.5.1-fix-goffice-0.4.0-build.patch
 Patch3:     %{name}-plugins-2.5.1-fix-goffice-0.4.0-build.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
+BuildRequires:	automake1.8
 BuildRequires:  ImageMagick
 BuildRequires:  bzip2-devel
 BuildRequires:  libtool-devel
@@ -527,6 +530,10 @@ Floating toolbar for using on the OLPC system
 %patch2 -p0 -b .goffice
 
 cd %{name}-plugins-%{version}
+cp $SOURCE4 ./autogen.sh
+cp $SOURCE5 ./nextgen.sh
+chmod +x *.sh
+
 %patch0 -p0 -b .poppler
 %patch3 -p0 -b .goffice
 cd -
