@@ -530,8 +530,8 @@ Floating toolbar for using on the OLPC system
 %patch2 -p0 -b .goffice
 
 cd %{name}-plugins-%{version}
-cp $SOURCE4 ./autogen.sh
-cp $SOURCE5 ./nextgen.sh
+cp %SOURCE4 ./autogen.sh
+cp %SOURCE5 ./nextgen.sh
 chmod +x *.sh
 
 %patch0 -p0 -b .poppler
