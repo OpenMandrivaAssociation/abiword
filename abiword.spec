@@ -130,7 +130,7 @@
 %define Aname %{name}-2.5
 %define Sname AbiSuite-2.5
 %define iconname abiword.png  
-%define release 3
+%define release 4
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
