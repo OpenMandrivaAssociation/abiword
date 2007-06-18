@@ -130,7 +130,7 @@
 %define Aname %{name}-2.5
 %define Sname AbiSuite-2.5
 %define iconname abiword.png  
-%define release 4
+%define release 5
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
@@ -615,7 +615,7 @@ cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/applications/mandriva-abiword-impexp.deskt
 Encoding=UTF-8
 Type=Application
 Exec=abiword %f
-MimeTypes=application/msword;application/vnd.ms-word;application/vnd.oasis.opendocument.text;application/vnd.stardivision.writer;text/richtext;
+MimeTypes=application/msword;application/vnd.ms-word;application/vnd.oasis.opendocument.text;application/vnd.stardivision.writer;text/richtext;application/x-kword;application/pdf;
 NoDisplay=True
 EOF
 
