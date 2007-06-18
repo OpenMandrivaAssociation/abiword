@@ -610,6 +610,15 @@ desktop-file-install --vendor="" \
 --add-category="X-MandrivaLinux-Office-Wordprocessors" \
 --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
  
+cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/applications/mandriva-abiword-impexp.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=abiword %f
+MimeTypes=application/msword;application/vnd.ms-word;application/vnd.oasis.opendocument.text;application/vnd.stardivision.writer;text/richtext;
+NoDisplay=True
+EOF
+
 #remove unpackaged files
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{Aname}/Nautilus_View_AbiWord.oaf \
  $RPM_BUILD_ROOT%{_datadir}/%{Aname}/nautilus-abiword-content-view-ui.xml \
@@ -740,6 +749,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %endif
 
 %files plugin-impexp
+%{_datadir}/applications/mandriva-abiword-impexp.desktop
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiKWord.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiXSLFO.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiLaTeX.*
