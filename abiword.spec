@@ -143,8 +143,6 @@ Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-%{version}.tar.bz2
 Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-%{version}.tar.bz2
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.bz2
-Source4:    %{name}-plugins-%{version}-autogen.sh
-Source5:    %{name}-plugins-%{version}-nextgen.sh
 Patch1:     abiword-2.4.5-xap_UnixApp.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
