@@ -130,11 +130,11 @@
 %define Aname %{name}-2.5
 %define Sname AbiSuite-2.5
 %define iconname abiword.png  
-%define release 5
+%define release 1
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
-Version:    2.5.1
+Version:    2.5.2
 Release:    %mkrel %release
 Group:      Office
 URL:        http://www.abisource.com/
@@ -145,13 +145,9 @@ Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.bz2
 Source4:    %{name}-plugins-%{version}-autogen.sh
 Source5:    %{name}-plugins-%{version}-nextgen.sh
-Patch0:     %name-plugins-2.5.1-poppler.patch
 Patch1:     abiword-2.4.5-xap_UnixApp.patch
-# Patch2,3 from upstream bug report #10977
-Patch2:     %{name}-2.5.1-fix-goffice-0.4.0-build.patch
-Patch3:     %{name}-plugins-2.5.1-fix-goffice-0.4.0-build.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
-BuildRequires:	automake1.8
+BuildRequires:	automake
 BuildRequires:  ImageMagick
 BuildRequires:  bzip2-devel
 BuildRequires:  libtool-devel
@@ -527,22 +523,11 @@ Floating toolbar for using on the OLPC system
 %setup -D -T -q -a 2
 %setup -D -T -q -a 3
 
-%patch2 -p0 -b .goffice
-
-cd %{name}-plugins-%{version}
-cp %SOURCE4 ./autogen.sh
-cp %SOURCE5 ./nextgen.sh
-chmod +x *.sh
-
-%patch0 -p0 -b .poppler
-%patch3 -p0 -b .goffice
-cd -
  
 %build
 rm -Rf libpng
 
 # The main applications
-NOCONFIGURE=yes ./autogen.sh
 %configure2_5x --enable-gnome --with-sys-wv 
 
 %make %{version_flag} ABI_OPT_DEBUG=%{enable_debug} \
@@ -552,7 +537,6 @@ NOCONFIGURE=yes ./autogen.sh
 
 # The plugins
 cd %{name}-plugins-%{version}
-NOCONFIGURE=yes ./autogen.sh
 %configure2_5x --host=%{_target_platform} --target=%{_target} --disable-rpath \
     --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
@@ -575,7 +559,6 @@ cd -
 
 %install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
-#cd abi
 
 %makeinstall_std
 
