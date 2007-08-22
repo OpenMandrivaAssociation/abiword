@@ -169,7 +169,7 @@ BuildRequires:  libgtkmathview-devel >= 0.7.5
 BuildRequires:	gucharmap-devel
 BuildRequires:	boost-devel
 %if %{enable_eps} 
-BuildRequires:  libeps0-devel
+BuildRequires:  eps-devel
 %endif
 %if %{enable_abicommand}
 BuildRequires:  libtermcap-devel 
@@ -194,7 +194,7 @@ BuildRequires: goffice-devel >= 0.4.0
 BuildRequires:  librsvg-devel
 %endif 
 %if %{enable_pdf}
-BuildRequires:  libpoppler-devel
+BuildRequires:  libpopplerglib-devel
 %endif
 %if %{enable_wordperfect}
 BuildRequires:  libwpd-devel >= 0.8.0
