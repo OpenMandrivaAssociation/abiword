@@ -747,6 +747,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 #%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiBZ2.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenDocument.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenWriter.*
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenXML.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCAPI.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPassepartout.*
 %if %{enable_wordperfect}
@@ -762,6 +763,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMIF.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiNroff.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiT602.so
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiGremlin.*
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libLoadBindings.so
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libPresentation.so
 
 %if %{enable_google}
 %files plugin-google
