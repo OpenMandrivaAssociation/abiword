@@ -739,7 +739,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMSWrite.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPalmDoc.*
 %if %{enable_pdf}
-%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPDF.*
+#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPDF.*
 %endif
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiSDW.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiWML.*
