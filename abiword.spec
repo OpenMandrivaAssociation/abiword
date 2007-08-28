@@ -594,7 +594,6 @@ desktop-file-install --vendor="" \
  
 cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/applications/mandriva-abiword-impexp.desktop
 [Desktop Entry]
-Encoding=UTF-8
 Type=Application
 Exec=abiword %f
 MimeTypes=application/msword;application/vnd.ms-word;application/vnd.oasis.opendocument.text;application/vnd.stardivision.writer;text/richtext;application/x-kword;application/pdf;
