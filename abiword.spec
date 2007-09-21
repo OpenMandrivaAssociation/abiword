@@ -638,23 +638,23 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %_datadir/applications/abiword.desktop
 
 %files doc-de
-%defattr(-,root,root)
+%defattr(644,root,root)
 #%doc %{name}-docs-%{version}/ABW/de-DE
 
 %files doc-en
-%defattr(-,root,root)
+%defattr(644,root,root)
 #%doc %{name}-docs-%{version}/screenshots/GNOME/en-GB %{name}-docs-%{version}/Tutorials %{name}-docs-%{version}/Manual/en
 %doc %{name}-docs-%{version}/ABW/en-US
 %doc docs/*.abw docs/*.txt docs/status/*.xsl docs/status/*.xml
 %_datadir/%{Aname}/help/en-US
 
 %files doc-fr
-%defattr(-,root,root)
+%defattr(644,root,root)
 %doc %{name}-docs-%{version}/ABW/fr-FR
 %_datadir/%{Aname}/help/fr-FR
 
 %files doc-pl
-%defattr(-,root,root)
+%defattr(644,root,root)
 %doc %{name}-docs-%{version}/ABW/pl-PL
 %_datadir/%{Aname}/help/pl-PL
 
