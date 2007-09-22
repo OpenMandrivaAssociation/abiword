@@ -130,20 +130,20 @@
 %define Aname %{name}-2.5
 %define Sname AbiSuite-2.5
 %define iconname abiword.png  
-%define release 1
+%define svnrel 21999
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.5.2
-Release:    %mkrel %release
+Release:    %mkrel 2.%svnrel.1
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPL
-Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.bz2
-Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-%{version}.tar.bz2
-Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-%{version}.tar.bz2
-Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.bz2
-Patch1:     abiword-2.4.5-xap_UnixApp.patch
+Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-r%{svnrel}.tar.bz2
+Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-r%{svnrel}.tar.bz2
+Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-r%{svnrel}.tar.bz2
+Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-r%{svnrel}.tar.bz2
+Patch2:     abiword-2.6.0-desktop-fix.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
 BuildRequires:  ImageMagick
@@ -517,16 +517,17 @@ Requires:   %{name} = %{version}
 Floating toolbar for using on the OLPC system
 
 %prep
-%setup -q -n %{name}-%{version}
-%setup -D -T -q -a 1
-%setup -D -T -q -a 2
-%setup -D -T -q -a 3
-
+%setup -q -n %{name}
+%setup -D -T -q -a 1 -n %{name}
+%setup -D -T -q -a 2 -n %{name}
+%setup -D -T -q -a 3 -n %{name}
+%patch2 -p0
  
 %build
 rm -Rf libpng
 
 # The main applications
+./autogen.sh
 %configure2_5x --enable-gnome --with-sys-wv 
 
 %make %{version_flag} ABI_OPT_DEBUG=%{enable_debug} \
@@ -535,7 +536,8 @@ rm -Rf libpng
     ABI_OPT_OPTIMIZE=%{enable_optimize}
 
 # The plugins
-cd %{name}-plugins-%{version}
+cd %{name}-plugins
+./autogen.sh
 %configure2_5x --host=%{_target_platform} --target=%{_target} --disable-rpath \
     --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
@@ -552,7 +554,7 @@ cd -
 # cd ../%{name}-extras-%{version}
 
 # now make the docs
-cd %{name}-docs-%{version}
+cd %{name}-docs
 ABI_DOC_PROG=$(pwd)/../src/wp/main/unix/%{name} ./make-html.sh
 cd -
 
@@ -561,12 +563,12 @@ cd -
 
 %makeinstall_std
 
-cd %{name}-plugins-%{version}
+cd %{name}-plugins
 %make install DESTDIR=$RPM_BUILD_ROOT
 cd -
 
 # install extra stuff
-cd %{name}-extras-%{version}
+cd %{name}-extras
 # cliparts
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/clipart
 install -m 644 clipart/*.png $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/clipart
@@ -579,7 +581,7 @@ install -m 644 dictionary/*.xml $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/dictiona
 cd -
 
 # install the docs
-cd %{name}-docs-%{version}
+cd %{name}-docs
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help
 cp -rp help/* $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help/
 # some of the help dirs have bad perms (#109261)
@@ -587,9 +589,9 @@ find $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help/ -type d -exec chmod -c o+rx {} \
 cd -
 
 desktop-file-install --vendor="" \
+--remove-key='Encoding' \
 --remove-category="Application" \
 --remove-category="X-Red-Hat-Base" \
---add-category="X-MandrivaLinux-Office-Wordprocessors" \
 --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
  
 cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/applications/mandriva-abiword-impexp.desktop
