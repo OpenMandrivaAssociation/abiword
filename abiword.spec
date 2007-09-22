@@ -194,7 +194,7 @@ BuildRequires: goffice-devel >= 0.4.0
 BuildRequires:  librsvg-devel
 %endif 
 %if %{enable_pdf}
-BuildRequires:  libpopplerglib-devel
+BuildRequires:  libpoppler-glib-devel
 %endif
 %if %{enable_wordperfect}
 BuildRequires:  libwpd-devel >= 0.8.0
