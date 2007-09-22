@@ -126,9 +126,8 @@
 %define plugin_pdf --disable-pdf
 %endif
 
-%define version_flag ABI_BUILD_VERSION=%version
+%define version_flag ABI_BUILD_VERSION=2.5.2
 %define Aname %{name}-2.5
-%define Sname AbiSuite-2.5
 %define iconname abiword.png  
 %define svnrel 21999
 
@@ -188,7 +187,7 @@ BuildRequires:  aiksaurusgtk-devel
 BuildRequires:  gnome-db2.0-devel
 %endif
 %if %{enable_goffice}
-BuildRequires: goffice-devel >= 0.4.0
+BuildRequires: goffice0-devel >= 0.4.0
 %endif
 %if %{enable_rsvg}
 BuildRequires:  librsvg-devel
@@ -204,7 +203,7 @@ BuildRequires:  libpsiconv-devel
 %endif
 Obsoletes:  %{name}-plugin-gdkpixbuf
 Provides:  %{name}-plugin-gdkpixbuf
- 
+Suggests:  %{name}-doc
 
 %description
 AbiWord is a cross-platform, Open Source Word Processor developed
@@ -249,6 +248,8 @@ and pkg files.
 Summary:    German documentation and helpfiles for Abiword
 Group:      Office
 Requires:   %{name}
+Requires:   locales-de
+Provides:   %{name}-doc = %version-%release
 
 %description doc-de
 German documentation and helpfiles for Abiword.
@@ -257,6 +258,8 @@ German documentation and helpfiles for Abiword.
 Summary:    English documentation and helpfiles for Abiword
 Group:      Office
 Requires:   %{name}
+Requires:   locales-en
+Provides:   %{name}-doc = %version-%release
 
 %description doc-en
 English documentation and helpfiles for Abiword.
@@ -265,6 +268,8 @@ English documentation and helpfiles for Abiword.
 Summary:    French documentation and helpfiles for Abiword
 Group:      Office
 Requires:   %{name}
+Requires:   locales-fr
+Provides:   %{name}-doc = %version-%release
 
 %description doc-fr
 French documentation and helpfiles for Abiword.
@@ -273,6 +278,8 @@ French documentation and helpfiles for Abiword.
 Summary:    Polish documentation and helpfiles for Abiword
 Group:      Office
 Requires:   %{name}
+Requires:   locales-pl
+Provides:   %{name}-doc = %version-%release
 
 %description doc-pl
 Polish documentation and helpfiles for Abiword.
@@ -645,18 +652,18 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %files doc-en
 %defattr(644,root,root)
 #%doc %{name}-docs-%{version}/screenshots/GNOME/en-GB %{name}-docs-%{version}/Tutorials %{name}-docs-%{version}/Manual/en
-%doc %{name}-docs-%{version}/ABW/en-US
+%doc %{name}-docs/ABW/en-US
 %doc docs/*.abw docs/*.txt docs/status/*.xsl docs/status/*.xml
 %_datadir/%{Aname}/help/en-US
 
 %files doc-fr
 %defattr(644,root,root)
-%doc %{name}-docs-%{version}/ABW/fr-FR
+%doc %{name}-docs/ABW/fr-FR
 %_datadir/%{Aname}/help/fr-FR
 
 %files doc-pl
 %defattr(644,root,root)
-%doc %{name}-docs-%{version}/ABW/pl-PL
+%doc %{name}-docs/ABW/pl-PL
 %_datadir/%{Aname}/help/pl-PL
 
 %if %{enable_abicollab}
