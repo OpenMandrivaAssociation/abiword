@@ -524,10 +524,9 @@ Floating toolbar for using on the OLPC system
 %patch2 -p0
  
 %build
-rm -Rf libpng
 
 # The main applications
-./autogen.sh
+NOCONFIGURE=1 ./autogen.sh
 %configure2_5x --enable-gnome --with-sys-wv 
 
 %make %{version_flag} ABI_OPT_DEBUG=%{enable_debug} \
@@ -537,7 +536,7 @@ rm -Rf libpng
 
 # The plugins
 cd %{name}-plugins
-./autogen.sh
+NOCONFIGURE=1 ./autogen.sh
 %configure2_5x --host=%{_target_platform} --target=%{_target} --disable-rpath \
     --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
