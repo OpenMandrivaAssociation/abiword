@@ -37,7 +37,7 @@
 %endif
 
 %if %{enable_abicollab}
-%define plugin_abicollab --enable-abicollab
+%define plugin_abicollab --enable-abicollab --with-abicollab-service-backend --with-asio=../asio-0.3.8rc3
 %else
 %define plugin_abicollab --disable-abicollab
 %endif
@@ -134,7 +134,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.5.2
-Release:    %mkrel 2.%svnrel.1
+Release:    %mkrel 2.%svnrel.2
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPL
@@ -142,6 +142,8 @@ Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-r%{svnrel}.tar.bz2
 Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-r%{svnrel}.tar.bz2
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-r%{svnrel}.tar.bz2
+# asio is needed for abicollab plugin
+Source4:    http://nchc.dl.sourceforge.net/sourceforge/asio/asio-0.3.8rc3.tar.bz2
 Patch2:     abiword-2.6.0-desktop-fix.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
@@ -174,6 +176,9 @@ BuildRequires:  eps-devel
 BuildRequires:  libtermcap-devel 
 BuildRequires:  libreadline-devel
 %endif
+%if %{enable_abicollab}
+BuildRequires:	loudmouth-devel
+%endif
 %if %{enable_perl}
 BuildRequires:  perl >= 5.005
 %endif
@@ -197,6 +202,7 @@ BuildRequires:  libpoppler-glib-devel
 %endif
 %if %{enable_wordperfect}
 BuildRequires:  libwpd-devel >= 0.8.0
+BuildRequires:  libwpg-devel >= 0.1.0
 %endif 
 %if %{enable_abipsion}
 BuildRequires:  libpsiconv-devel
@@ -528,6 +534,7 @@ Floating toolbar for using on the OLPC system
 %setup -D -T -q -a 1 -n %{name}
 %setup -D -T -q -a 2 -n %{name}
 %setup -D -T -q -a 3 -n %{name}
+%setup -D -T -q -a 4 -n %{name}
 %patch2 -p0
  
 %build
@@ -544,7 +551,8 @@ NOCONFIGURE=1 ./autogen.sh
 # The plugins
 cd %{name}-plugins
 NOCONFIGURE=1 ./autogen.sh
-%configure2_5x --host=%{_target_platform} --target=%{_target} --disable-rpath \
+export CXXFLAGS="%{optflags} -I$(pwd)/../asio-0.3.8rc3/include"
+%configure2_5x --disable-rpath \
     --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
     %{plugin_babelfish} %{plugin_festvox} %{plugin_freetranslation} \
