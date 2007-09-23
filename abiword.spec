@@ -641,6 +641,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %defattr(-,root,root)
 %doc user/wp/readme.txt BiDiReadme.txt COPYING COPYRIGHT.TXT CREDITS.TXT abi2po.pl
 %{_bindir}/*
+%dir %{_datadir}/%{Aname}
 %{_datadir}/%{Aname}/readme.txt 
 %{_datadir}/%{Aname}/strings
 %{_datadir}/%{Aname}/scripts
@@ -649,6 +650,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %{_datadir}/%{Aname}/clipart/*
 %{_datadir}/%{Aname}/templates/*
 %{_datadir}/%{Aname}/dictionary/*
+%dir %{_libdir}/%{Aname}
+%dir %{_libdir}/%{Aname}/plugins
 %{_datadir}/mime-info/%{name}.keys
 %_datadir/icons/abiword_48.png
 %_datadir/applications/abiword.desktop
