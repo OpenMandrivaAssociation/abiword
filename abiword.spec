@@ -561,7 +561,7 @@ cd -
 
 # now make the docs
 cd %{name}-docs
-ABI_DOC_PROG=$(pwd)/../src/wp/main/unix/%{name} ./make-html.sh
+ABI_DOC_PROG=$(pwd)/../src/wp/main/unix/%{Aname} ./make-html.sh
 cd -
 
 %install
