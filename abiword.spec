@@ -576,6 +576,7 @@ cd -
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %makeinstall_std
+ln -s %Aname %buildroot%_bindir/%name
 
 cd %{name}-plugins
 %make install DESTDIR=$RPM_BUILD_ROOT
