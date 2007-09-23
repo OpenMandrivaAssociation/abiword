@@ -767,6 +767,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPassepartout.*
 %if %{enable_wordperfect}
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiWordPerfect.*
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiWPG.so
 %endif
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiApplix.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiClarisWorks.so
@@ -825,4 +826,3 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %{clean_menus}
 %{clean_desktop_database}
 %{clean_mime_database}
-
