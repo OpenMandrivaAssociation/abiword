@@ -134,7 +134,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.5.2
-Release:    %mkrel 2.%svnrel.2
+Release:    %mkrel 2.%svnrel.3
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPL
@@ -495,8 +495,8 @@ Summary:    Plugin to create Gnome Office components
 Group:      Office
 Requires:   %{name} = %{version}
 Requires:   goffice >= 0.4.0
-Provides:	%{name}-abigochar = %{version}-%{release}
-Obsoletes:	%{name}-abigochar
+Provides:	%{name}-plugin-abigochart = %{version}-%{release}
+Obsoletes:	%{name}-plugin-abigochart
 
 %description plugin-abigoffice
 Plugin allowing the creation of Gnome Office components
