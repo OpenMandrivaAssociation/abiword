@@ -212,25 +212,8 @@ Provides:  %{name}-plugin-gdkpixbuf
 Suggests:  %{name}-doc
 
 %description
-AbiWord is a cross-platform, Open Source Word Processor developed
-by the people at AbiSource, Inc. and by developers from around the world.
-
-It is a lean and fast full-featured word processor. It works on Most Unix
-systems, Microsoft Windows and Mac OS X. Features include:
-
-   * Basic character formatting (bold, underline, italics, etc.)
-   * Paragraph alignment
-   * Spell-check
-   * Import of MS Word and RTF documents
-   * Export to RTF, Text, HTML, and LaTeX formats
-   * Interactive rulers and tabs
-   * Styles
-   * Unlimited undo/redo
-   * Multiple column control
-   * Widow/orphan control
-   * Find/Replace
-   * Images
-   * Tables
+AbiWord is a cross-platform, open source, lean and fast full-featured word
+processor. It works on Most Unix systems, Microsoft Windows and Mac OS X.
 
 More features are available through the use of plugins, which are
 packaged separately. Also more import and export filters are
