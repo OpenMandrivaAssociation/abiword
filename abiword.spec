@@ -145,7 +145,6 @@ Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 # asio is needed for abicollab plugin
 Source4:    http://nchc.dl.sourceforge.net/sourceforge/asio/asio-0.3.8rc3.tar.bz2
 Patch2:     abiword-2.6.0-desktop-fix.patch
-BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
 BuildRequires:  ImageMagick
 BuildRequires:  bzip2-devel
