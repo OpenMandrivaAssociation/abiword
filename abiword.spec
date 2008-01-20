@@ -142,8 +142,6 @@ Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-r%{svnrel}.tar.bz2
 Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-r%{svnrel}.tar.bz2
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-r%{svnrel}.tar.bz2
-# asio is needed for abicollab plugin
-Source4:    http://nchc.dl.sourceforge.net/sourceforge/asio/asio-0.3.8rc3.tar.bz2
 Patch2:     abiword-2.6.0-desktop-fix.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
@@ -178,6 +176,7 @@ BuildRequires:  libreadline-devel
 %endif
 %if %{enable_abicollab}
 BuildRequires:	loudmouth-devel
+BuildRequires:	asio
 %endif
 %if %{enable_perl}
 BuildRequires:  perl >= 5.005
@@ -517,7 +516,6 @@ Floating toolbar for using on the OLPC system
 %setup -D -T -q -a 1 -n %{name}
 %setup -D -T -q -a 2 -n %{name}
 %setup -D -T -q -a 3 -n %{name}
-%setup -D -T -q -a 4 -n %{name}
 %patch2 -p0
  
 %build
@@ -534,7 +532,7 @@ NOCONFIGURE=1 ./autogen.sh
 # The plugins
 cd %{name}-plugins
 NOCONFIGURE=1 ./autogen.sh
-export CXXFLAGS="%{optflags} -I$(pwd)/../asio-0.3.8rc3/include"
+#export CXXFLAGS="%{optflags} -I$(pwd)/../asio-0.3.8rc3/include"
 %configure2_5x --disable-rpath \
     --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
