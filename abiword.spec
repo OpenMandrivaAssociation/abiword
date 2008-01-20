@@ -134,10 +134,10 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.5.2
-Release:    %mkrel 2.%svnrel.3
+Release:    %mkrel 2.%svnrel.4
 Group:      Office
 URL:        http://www.abisource.com/
-License:    GPL
+License:    GPLv2+
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-r%{svnrel}.tar.bz2
 Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-r%{svnrel}.tar.bz2
 Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-r%{svnrel}.tar.bz2
