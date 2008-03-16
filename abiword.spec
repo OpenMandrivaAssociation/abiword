@@ -7,7 +7,7 @@
 # PLUGIN OPTIONS: 1 for yes, 0 for no
 %define enable_abicollab 1
 %define enable_abicommand 1
-%define enable_abidash 1
+%define enable_abidash 0
 %define enable_abipsion 1
 %define enable_aiksaurus 1
 %define enable_babelfish 1
@@ -126,15 +126,15 @@
 %define plugin_pdf --disable-pdf
 %endif
 
-%define version_flag ABI_BUILD_VERSION=2.5.2
-%define Aname %{name}-2.5
+%define version_flag ABI_BUILD_VERSION=2.6.0
+%define Aname %{name}-2.6
 %define iconname abiword.png  
-%define svnrel 21999
+%define svnrel 23119
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.5.2
-Release:    %mkrel 2.%svnrel.4
+Release:    %mkrel 2.%svnrel.1
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -542,38 +542,35 @@ NOCONFIGURE=1 ./autogen.sh
     %{plugin_urldict} %{plugin_wikipedia} \
     %{plugin_pdf}
 
-%make
+make
 cd -
-
-# The extra stuff don't need build acturally
-# cd ../%{name}-extras-%{version}
 
 # now make the docs
 cd %{name}-docs
-ABI_DOC_PROG=$(pwd)/../src/wp/main/unix/%{Aname} ./make-html.sh
+ABI_DOC_PROG=$(pwd)/../src/wp/main/unix/%{name} ./make-html.sh
 cd -
 
 %install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %makeinstall_std
-ln -s %Aname %buildroot%_bindir/%name
+#ln -s %Aname %buildroot%_bindir/%name
 
 cd %{name}-plugins
-%make install DESTDIR=$RPM_BUILD_ROOT
+%makeinstall_std
 cd -
 
 # install extra stuff
 cd %{name}-extras
 # cliparts
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/clipart
-install -m 644 clipart/*.png $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/clipart
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/clipart
+install -m 644 clipart/*.png $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/clipart
 # templates
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/templates
-install -m 644 templates/*.awt $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/templates
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/templates
+install -m 644 templates/*.awt $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/templates
 # dictionaries
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/dictionary
-install -m 644 dictionary/*.xml $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.5/dictionary
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/dictionary
+install -m 644 dictionary/*.xml $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/dictionary
 cd -
 
 # install the docs
@@ -624,7 +621,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %doc user/wp/readme.txt BiDiReadme.txt COPYING COPYRIGHT.TXT CREDITS.TXT abi2po.pl
 %{_bindir}/*
 %dir %{_datadir}/%{Aname}
-%{_datadir}/%{Aname}/readme.txt 
+%{_datadir}/%{Aname}/readme.*
 %{_datadir}/%{Aname}/strings
 %{_datadir}/%{Aname}/scripts
 %{_datadir}/%{Aname}/system.profile-* 
@@ -638,8 +635,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %_datadir/icons/abiword_48.png
 %_datadir/applications/abiword.desktop
 
-%files doc-de
-%defattr(-,root,root)
+#%files doc-de
+#%defattr(-,root,root)
 #%doc %{name}-docs-%{version}/ABW/de-DE
 
 %files doc-en
@@ -739,7 +736,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMSWrite.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPalmDoc.*
 %if %{enable_pdf}
-#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPDF.*
+%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPDF.*
 %endif
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiSDW.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiWML.*
@@ -794,8 +791,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %files plugin-abimathview
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMathView.so
 
-%files plugin-olpctoolbar
-%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOlpcToolbar.*
+#%files plugin-olpctoolbar
+#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOlpcToolbar.*
 
 %files devel
 %attr(-,root,root)
