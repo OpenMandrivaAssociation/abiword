@@ -5,7 +5,7 @@
 %define enable_jpeg 1
 
 # PLUGIN OPTIONS: 1 for yes, 0 for no
-%define enable_abicollab 1
+%define enable_abicollab 0
 %define enable_abicommand 1
 %define enable_abidash 0
 %define enable_abipsion 1
@@ -150,6 +150,7 @@ BuildRequires:  bzip2-devel
 BuildRequires:  libtool-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libwmf-devel >= 0.2.1
+BuildRequires:	libwps-devel
 BuildRequires:  wv-devel
 BuildRequires:  enchant-devel
 BuildRequires:  texinfo
