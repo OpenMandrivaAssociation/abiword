@@ -129,19 +129,18 @@
 %define version_flag ABI_BUILD_VERSION=2.6.0
 %define Aname %{name}-2.6
 %define iconname abiword.png  
-%define svnrel 23119
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
-Version:    2.5.2
-Release:    %mkrel 2.%svnrel.1
+Version:    2.6.0
+Release:    %mkrel 1
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
-Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-r%{svnrel}.tar.bz2
-Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-r%{svnrel}.tar.bz2
-Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-r%{svnrel}.tar.bz2
-Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-r%{svnrel}.tar.bz2
+Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
+Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-%{version}.tar.gz
+Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-%{version}.tar.gz
+Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.gz
 Patch2:     abiword-2.6.0-desktop-fix.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
@@ -513,16 +512,14 @@ Requires:   %{name} = %{version}
 Floating toolbar for using on the OLPC system
 
 %prep
-%setup -q -n %{name}
-%setup -D -T -q -a 1 -n %{name}
-%setup -D -T -q -a 2 -n %{name}
-%setup -D -T -q -a 3 -n %{name}
+%setup -q -n %{name}-%{version}
+%setup -D -T -q -a 1 -n %{name}-%{version}
+%setup -D -T -q -a 2 -n %{name}-%{version}
+%setup -D -T -q -a 3 -n %{name}-%{version}
 %patch2 -p0
  
 %build
-
 # The main applications
-NOCONFIGURE=1 ./autogen.sh
 %configure2_5x --enable-gnome --with-sys-wv 
 
 %make %{version_flag} ABI_OPT_DEBUG=%{enable_debug} \
@@ -531,9 +528,7 @@ NOCONFIGURE=1 ./autogen.sh
     ABI_OPT_OPTIMIZE=%{enable_optimize}
 
 # The plugins
-cd %{name}-plugins
-NOCONFIGURE=1 ./autogen.sh
-#export CXXFLAGS="%{optflags} -I$(pwd)/../asio-0.3.8rc3/include"
+cd %{name}-plugins-%{version}
 %configure2_5x --disable-rpath \
     --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
@@ -547,7 +542,7 @@ make
 cd -
 
 # now make the docs
-cd %{name}-docs
+cd %{name}-docs-%{version}
 ABI_DOC_PROG=$(pwd)/../src/wp/main/unix/%{name} ./make-html.sh
 cd -
 
@@ -557,12 +552,12 @@ cd -
 %makeinstall_std
 #ln -s %Aname %buildroot%_bindir/%name
 
-cd %{name}-plugins
+cd %{name}-plugins-%{version}
 %makeinstall_std
 cd -
 
 # install extra stuff
-cd %{name}-extras
+cd %{name}-extras-%{version}
 # cliparts
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/clipart
 install -m 644 clipart/*.png $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/clipart
@@ -575,7 +570,7 @@ install -m 644 dictionary/*.xml $RPM_BUILD_ROOT/%{_datadir}/%{name}-2.6/dictiona
 cd -
 
 # install the docs
-cd %{name}-docs
+cd %{name}-docs-%{version}
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help
 cp -rp help/* $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help/
 # some of the help dirs have bad perms (#109261)
@@ -642,19 +637,18 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 
 %files doc-en
 %defattr(-,root,root)
-#%doc %{name}-docs-%{version}/screenshots/GNOME/en-GB %{name}-docs-%{version}/Tutorials %{name}-docs-%{version}/Manual/en
-%doc %{name}-docs/ABW/en-US
+%doc %{name}-docs-%{version}/ABW/en-US
 %doc docs/*.abw docs/*.txt docs/status/*.xsl docs/status/*.xml
 %_datadir/%{Aname}/help/en-US
 
 %files doc-fr
 %defattr(-,root,root)
-%doc %{name}-docs/ABW/fr-FR
+%doc %{name}-docs-%{version}/ABW/fr-FR
 %_datadir/%{Aname}/help/fr-FR
 
 %files doc-pl
 %defattr(-,root,root)
-%doc %{name}-docs/ABW/pl-PL
+%doc %{name}-docs-%{version}/ABW/pl-PL
 %_datadir/%{Aname}/help/pl-PL
 
 %if %{enable_abicollab}
