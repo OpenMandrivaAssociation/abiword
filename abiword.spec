@@ -502,13 +502,13 @@ Requires:   %{name} = %{version}
 %description plugin-abimathview
 Plugin to import and edit MathML documents
 
-%package plugin-olpctoolbar
-Summary:    Floating toolbar for using on the OLPC system
-Group:      Office
-Requires:   %{name} = %{version}
+#%package plugin-olpctoolbar
+#Summary:    Floating toolbar for using on the OLPC system
+#Group:      Office
+#Requires:   %{name} = %{version}
 
-%description plugin-olpctoolbar
-Floating toolbar for using on the OLPC system
+#%description plugin-olpctoolbar
+#Floating toolbar for using on the OLPC system
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -623,6 +623,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %{_datadir}/%{Aname}/clipart/*
 %{_datadir}/%{Aname}/templates/*
 %{_datadir}/%{Aname}/dictionary/*
+%{_datadir}/%{Aname}/Presentation.xml
 %dir %{_libdir}/%{Aname}
 %dir %{_libdir}/%{Aname}/plugins
 %{_datadir}/mime-info/%{name}.keys
@@ -738,7 +739,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenDocument.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenWriter.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenXML.*
-%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCAPI.*
+#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCAPI.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPassepartout.*
 %if %{enable_wordperfect}
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiWordPerfect.*
@@ -754,7 +755,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMIF.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiNroff.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiT602.so
-%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiGremlin.*
+#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiGremlin.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libLoadBindings.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libPresentation.so
 
