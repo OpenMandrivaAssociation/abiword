@@ -133,7 +133,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.6.2
-Release:    %mkrel 1
+Release:    %mkrel 2
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -156,7 +156,7 @@ BuildRequires:  lcms-devel
 BuildRequires:  fribidi-devel >= 0.10.4
 BuildRequires:  libglade2.0-devel
 BuildRequires:  libgnomeui2-devel
-BuildRequires:  libgnomeprintui-devel
+BuildRequires:  libgnomeprintui2-2-devel
 BuildRequires:  libgsf-devel >= 1.13.3
 BuildRequires:  link-grammar-devel
 BuildRequires:  desktop-file-utils
