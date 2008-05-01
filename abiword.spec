@@ -7,7 +7,7 @@
 # PLUGIN OPTIONS: 1 for yes, 0 for no
 %define enable_abicollab 0
 %define enable_abicommand 1
-%define enable_abidash 1
+%define enable_abidash 0
 %define enable_abipsion 1
 %define enable_aiksaurus 1
 %define enable_babelfish 1
