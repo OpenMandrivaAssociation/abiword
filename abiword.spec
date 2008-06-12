@@ -793,12 +793,16 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %{_includedir}/%{Aname}/*.h
 %{_libdir}/pkgconfig/%{Aname}.pc
 
+%if %mdkversion < 200900
 %post
 %{update_menus}
 %{update_desktop_database}
 %{update_mime_database}
+%endif
 
+%if %mdkversion < 200900
 %postun
 %{clean_menus}
 %{clean_desktop_database}
 %{clean_mime_database}
+%endif
