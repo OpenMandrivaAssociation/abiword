@@ -132,8 +132,8 @@
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
-Version:    2.6.3
-Release:    %mkrel 2
+Version:    2.6.4
+Release:    %mkrel 1
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -231,6 +231,7 @@ Requires:	%{name} = %{version}
 This pacakage contains devel files for Abiword, mainly header files
 and pkg files.
 
+%if 0
 %package doc-de
 Summary:    German documentation and helpfiles for Abiword
 Group:      Office
@@ -240,6 +241,7 @@ Provides:   %{name}-doc = %version-%release
 
 %description doc-de
 German documentation and helpfiles for Abiword.
+%endif
 
 %package doc-en
 Summary:    English documentation and helpfiles for Abiword
@@ -291,6 +293,7 @@ Requires:   %{name} = %{version}
 This plugin offers a command line interface to AbiWord.
 %endif
 
+%if 0
 %if %{enable_perl}
 %package perl
 Summary:    Perl Bindings Module
@@ -300,6 +303,7 @@ Requires:   %{name} = %{version}
 
 %description perl
 Perl Module containing classes for AbiWord Scripting.
+%endif
 %endif
 
 %if %{enable_babelfish}
