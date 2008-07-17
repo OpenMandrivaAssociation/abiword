@@ -5,7 +5,7 @@
 %define enable_jpeg 1
 
 # PLUGIN OPTIONS: 1 for yes, 0 for no
-%define enable_abicollab 0
+%define enable_abicollab 1
 %define enable_abicommand 1
 %define enable_abidash 0
 %define enable_abipsion 1
@@ -37,7 +37,7 @@
 %endif
 
 %if %{enable_abicollab}
-%define plugin_abicollab --enable-abicollab --with-abicollab-service-backend --with-asio=../asio-0.3.8rc3
+%define plugin_abicollab --enable-abicollab --with-abicollab-service-backend
 %else
 %define plugin_abicollab --disable-abicollab
 %endif
@@ -133,7 +133,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.6.4
-Release:    %mkrel 1
+Release:    %mkrel 2
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -176,6 +176,7 @@ BuildRequires:  libreadline-devel
 %if %{enable_abicollab}
 BuildRequires:	loudmouth-devel
 BuildRequires:	asio
+BuildRequires:	libsoup-devel
 %endif
 %if %{enable_perl}
 BuildRequires:  perl >= 5.005
@@ -531,6 +532,7 @@ Plugin to import and edit MathML documents
 
 # The plugins
 cd %{name}-plugins-%{version}
+./nextgen.sh
 %configure2_5x --disable-rpath \
     --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
@@ -657,6 +659,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %if %{enable_abicollab}
 %files plugin-abicollab
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCollab.*
+%attr(-,root,root) %{_datadir}/%{Aname}/certs/cacert.pem
 %endif
 
 %if %{enable_abicommand}
