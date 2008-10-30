@@ -133,7 +133,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.6.4
-Release:    %mkrel 2
+Release:    %mkrel 3
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -141,6 +141,7 @@ Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-%{version}.tar.gz
 Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-%{version}.tar.gz
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.gz
+Patch0:     abiword-2.6.4-style-crash.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
 BuildRequires:  ImageMagick
@@ -520,6 +521,7 @@ Plugin to import and edit MathML documents
 %setup -D -T -q -a 1 -n %{name}-%{version}
 %setup -D -T -q -a 2 -n %{name}-%{version}
 %setup -D -T -q -a 3 -n %{name}-%{version}
+%patch0 -p0
  
 %build
 # The main applications
