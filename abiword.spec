@@ -26,7 +26,7 @@
 # graphics  
 %define enable_rsvg 1
 #search
-%define enable_eps 0
+%define enable_eps 1
 %define enable_google 1
 
 %if %{enable_debug}
@@ -166,6 +166,7 @@ BuildRequires:  gtkmathview >= 0.7.5
 BuildRequires:  libgtkmathview-devel >= 0.7.5
 BuildRequires:	gucharmap-devel
 BuildRequires:	boost-devel
+BuildRequires:	libtasn1-devel
 %if %{enable_eps} 
 BuildRequires:  eps-devel
 %endif
