@@ -532,7 +532,6 @@ Plugin to import and edit MathML documents
 
 # The plugins
 cd %{name}-plugins-%{version}
-./nextgen.sh
 %configure2_5x --disable-rpath \
     --enable-all --with-abiword=../ %{plugin_abicollab} \
     %{plugin_abidash} %{plugin_abipsion} %{plugin_aiksaurus} \
