@@ -623,7 +623,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %dir %{_datadir}/%{Aname}
 %{_datadir}/%{Aname}/readme.*
 %{_datadir}/%{Aname}/strings
-%{_datadir}/%{Aname}/scripts
 %{_datadir}/%{Aname}/system.profile-* 
 %{_datadir}/%{Aname}/glade/*
 %{_datadir}/%{Aname}/clipart/*
