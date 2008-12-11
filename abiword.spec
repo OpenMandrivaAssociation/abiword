@@ -143,7 +143,7 @@ Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.gz
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
-BuildRequires:  ImageMagick
+BuildRequires:  imagemagick
 BuildRequires:  bzip2-devel
 BuildRequires:  libtool-devel
 BuildRequires:  libjpeg-devel
