@@ -141,6 +141,8 @@ Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}
 Source1:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-plugins-%{version}.tar.gz
 Source2:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-extras-%{version}.tar.gz
 Source3:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-docs-%{version}.tar.gz
+Patch0:		abiword-2.6.6-str-fmt.patch
+Patch1:		abiword-plugins-2.6.6-str-fmt.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	automake
 BuildRequires:  imagemagick
@@ -521,6 +523,10 @@ Plugin to import and edit MathML documents
 %setup -D -T -q -a 1 -n %{name}-%{version}
 %setup -D -T -q -a 2 -n %{name}-%{version}
 %setup -D -T -q -a 3 -n %{name}-%{version}
+%patch0 -p0
+cd abiword-plugins-%{version}
+%patch1 -p0
+cd -
  
 %build
 # The main applications
