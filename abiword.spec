@@ -132,7 +132,7 @@
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
-Version:    2.6.5
+Version:    2.6.6
 Release:    %mkrel 1
 Group:      Office
 URL:        http://www.abisource.com/
