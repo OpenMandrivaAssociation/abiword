@@ -28,6 +28,8 @@
 #search
 %define enable_eps 0
 %define enable_google 1
+# client library
+%define enable_libabiword 1
 
 %if %{enable_debug}
 # This makes sure the binaries are UNSTRIPPED!
@@ -126,6 +128,13 @@
 %define plugin_pdf --disable-pdf
 %endif
 
+%if %{enable_libabiword}
+%define libabiword --enable-libabiword 
+%define libabiword_name %mklibname %{name}
+%else
+%define libabiword --disable-libabiword 
+%endif
+
 %define version_flag ABI_BUILD_VERSION=2.6.0
 %define Aname %{name}-2.6
 %define iconname abiword.png  
@@ -209,6 +218,9 @@ BuildRequires:  libwpg-devel >= 0.1.0
 %if %{enable_abipsion}
 BuildRequires:  libpsiconv-devel
 %endif
+%if %{enable_libabiword}
+Requires: %{libabiword_name} = %{version}
+%endif
 Obsoletes:  %{name}-plugin-gdkpixbuf
 Provides:  %{name}-plugin-gdkpixbuf
 Suggests:  %{name}-doc
@@ -234,18 +246,6 @@ Requires:	%{name} = %{version}
 %description devel
 This pacakage contains devel files for Abiword, mainly header files
 and pkg files.
-
-%if 0
-%package doc-de
-Summary:    German documentation and helpfiles for Abiword
-Group:      Office
-Requires:   %{name}
-Requires:   locales-de
-Provides:   %{name}-doc = %version-%release
-
-%description doc-de
-German documentation and helpfiles for Abiword.
-%endif
 
 %package doc-en
 Summary:    English documentation and helpfiles for Abiword
@@ -295,19 +295,6 @@ Requires:   %{name} = %{version}
 
 %description plugin-abicommand
 This plugin offers a command line interface to AbiWord.
-%endif
-
-%if 0
-%if %{enable_perl}
-%package perl
-Summary:    Perl Bindings Module
-Group:      Development/Libraries
-Requires:   perl >= 5.005
-Requires:   %{name} = %{version}
-
-%description perl
-Perl Module containing classes for AbiWord Scripting.
-%endif
 %endif
 
 %if %{enable_babelfish}
@@ -510,13 +497,14 @@ Requires:   %{name} = %{version}
 %description plugin-abimathview
 Plugin to import and edit MathML documents
 
-#%package plugin-olpctoolbar
-#Summary:    Floating toolbar for using on the OLPC system
-#Group:      Office
-#Requires:   %{name} = %{version}
+%if %{enable_libabiword}
+%package -n %{libabiword_name}
+Summary:    Client library for %{name}
+Group:      System/Libraries
 
-#%description plugin-olpctoolbar
-#Floating toolbar for using on the OLPC system
+%description -n %{libabiword_name}
+Client library for %{name}
+%endif
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -530,12 +518,16 @@ cd -
  
 %build
 # The main applications
-%configure2_5x --enable-gnome --with-sys-wv 
+%configure2_5x --enable-gnome --with-sys-wv %{libabiword}
 
 %make %{version_flag} ABI_OPT_DEBUG=%{enable_debug} \
     UNIX_CAN_BUILD_STATIC=0 ABI_OPT_LIBJPEG=1 \
     ABI_OPT_PERL=%{enable_perl} \
     ABI_OPT_OPTIMIZE=%{enable_optimize}
+
+# let plugins know about abiword
+export PKG_CONFIG_PATH=`pwd`
+export LDFLAGS="%ldflags -L`pwd`/src/wp/main/unix/"
 
 # The plugins
 cd %{name}-plugins-%{version}
@@ -546,7 +538,7 @@ cd %{name}-plugins-%{version}
     %{plugin_gda} %{plugin_gdict} %{plugin_google} \
     %{plugin_shell} %{plugin_tests} \
     %{plugin_urldict} %{plugin_wikipedia} \
-    %{plugin_pdf}
+    %{plugin_pdf} %{libabiword}
 
 make
 cd -
@@ -560,7 +552,6 @@ cd -
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %makeinstall_std
-#ln -s %Aname %buildroot%_bindir/%name
 
 cd %{name}-plugins-%{version}
 %makeinstall_std
@@ -588,10 +579,11 @@ find $RPM_BUILD_ROOT/%{_datadir}/%{Aname}/help/ -type d -exec chmod -c o+rx {} \
 cd -
 
 desktop-file-install --vendor="" \
---remove-key='Encoding' \
---remove-category="Application" \
---remove-category="X-Red-Hat-Base" \
---dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
+	--remove-key='Encoding' \
+	--remove-category="Application" \
+	--remove-category="X-Red-Hat-Base" \
+	--dir $RPM_BUILD_ROOT%{_datadir}/applications \
+	$RPM_BUILD_ROOT%{_datadir}/applications/*
  
 cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/applications/mandriva-abiword-impexp.desktop
 [Desktop Entry]
@@ -612,8 +604,6 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/*.la
 
 # add uninstalled files
 %if %{enable_abicommand}
-#cd ../abidistfiles
-#cp GNOME_AbiWord_Control_2_4.server $RPM_BUILD_ROOT%{_libdir}/bonobo/servers/
 %else
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %endif
@@ -641,10 +631,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %_datadir/icons/abiword_48.png
 %_datadir/applications/abiword.desktop
 
-#%files doc-de
-#%defattr(-,root,root)
-#%doc %{name}-docs-%{version}/ABW/de-DE
-
 %files doc-en
 %defattr(-,root,root)
 %doc %{name}-docs-%{version}/ABW/en-US
@@ -670,7 +656,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %if %{enable_abicommand}
 %files plugin-abicommand
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCommand.*
-#%attr(-,root,root) %{_libdir}/bonobo/servers/GNOME_AbiWord_Control_2_4.server
 %endif
 
 %if %{enable_gdict}
@@ -747,11 +732,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiSDW.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiWML.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiXHTML.*
-#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiBZ2.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenDocument.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenWriter.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOpenXML.*
-#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiCAPI.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiPassepartout.*
 %if %{enable_wordperfect}
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiWordPerfect.*
@@ -767,7 +750,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMIF.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiNroff.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiT602.so
-#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiGremlin.*
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libLoadBindings.so
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libPresentation.so
 
@@ -797,8 +779,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %files plugin-abimathview
 %attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiMathView.so
 
-#%files plugin-olpctoolbar
-#%attr(-,root,root) %{_libdir}/%{Aname}/plugins/libAbiOlpcToolbar.*
+%if %{enable_libabiword}
+%files -n %{libabiword_name}
+%{_libdir}/*.so
+%endif
 
 %files devel
 %attr(-,root,root)
