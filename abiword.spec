@@ -527,7 +527,7 @@ cd -
 
 # let plugins know about abiword
 export PKG_CONFIG_PATH=`pwd`
-export LDFLAGS="%ldflags -L`pwd`/src/wp/main/unix/"
+export LDFLAGS="%{?ldflags} -L`pwd`/src/wp/main/unix/"
 
 # The plugins
 cd %{name}-plugins-%{version}
