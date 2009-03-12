@@ -141,7 +141,7 @@
 
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
-Version:    2.6.6
+Version:    2.6.8
 Release:    %mkrel 1
 Group:      Office
 URL:        http://www.abisource.com/
@@ -624,6 +624,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{Aname}/plugins/libAbiCommand.*
 %{_datadir}/%{Aname}/clipart/*
 %{_datadir}/%{Aname}/templates/*
 %{_datadir}/%{Aname}/dictionary/*
+%{_datadir}/%{Aname}/xsltml/*
 %{_datadir}/%{Aname}/Presentation.xml
 %dir %{_libdir}/%{Aname}
 %dir %{_libdir}/%{Aname}/plugins
