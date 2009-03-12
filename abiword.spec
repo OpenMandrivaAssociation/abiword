@@ -178,6 +178,7 @@ BuildRequires:  libgtkmathview-devel >= 0.7.5
 BuildRequires:	gucharmap-devel
 BuildRequires:	boost-devel
 BuildRequires:	libtasn1-devel
+BuildRequires:	libxslt-devel
 %if %{enable_eps} 
 BuildRequires:  eps-devel
 %endif
