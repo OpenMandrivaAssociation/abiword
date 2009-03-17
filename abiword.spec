@@ -15,7 +15,7 @@
 %define enable_freetranslation 1
 %define enable_festvox 0
 %define enable_gda 0
-%define enable_gdict 1
+%define enable_gdict 0
 %define enable_goffice 1
 %define enable_shell 1
 %define enable_urldict 1
