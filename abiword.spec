@@ -39,7 +39,7 @@
 %endif
 
 %if %{enable_abicollab}
-%define plugin_abicollab --enable-abicollab --with-abicollab-service-backend
+%define plugin_abicollab --enable-abicollab --with-abicollab-service-backend --with-abicollab-sugar-backend
 %else
 %define plugin_abicollab --disable-abicollab
 %endif
@@ -142,7 +142,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.6.8
-Release:    %mkrel 1
+Release:    %mkrel 2
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
