@@ -142,7 +142,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.6.8
-Release:    %mkrel 2
+Release:    %mkrel 3
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -471,7 +471,7 @@ Plugin allowing import/export from Psion PDA
 Summary:    Plugin to create Gnome Office components
 Group:      Office
 Requires:   %{name} = %{version}
-Requires:   goffice >= 0.4.0
+Requires:   goffice0 >= 0.4.0
 Provides:	%{name}-plugin-abigochart = %{version}-%{release}
 Obsoletes:	%{name}-plugin-abigochart
 
