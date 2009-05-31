@@ -1,7 +1,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.7.2
-Release:    %mkrel 1
+Release:    %mkrel 2
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -38,7 +38,7 @@ BuildRequires:	ots-devel
 BuildRequires:	link-grammar-devel >= 4.2.1
 BuildRequires:	aiksaurusgtk-devel
 
-Obsoletes:	aabiword-plugin-abicollab < 2.7.2
+Obsoletes:	abiword-plugin-abicollab < 2.7.2
 Obsoletes:	abiword-plugin-abicommand < 2.7.2
 Obsoletes:	abiword-plugin-abigimp < 2.7.2
 Obsoletes:	abiword-plugin-abigoffice < 2.7.2
@@ -59,12 +59,6 @@ Obsoletes:	abiword-plugin-wikipedia < 2.7.2
 %description
 AbiWord is a cross-platform, open source, lean and fast full-featured word
 processor. It works on Most Unix systems, Microsoft Windows and Mac OS X.
-
-More features are available through the use of plugins, which are
-packaged separately. Also more import and export filters are
-available by installing the abiword-plugin-impexp package.
-Help files are available in a few languages which rae available as
-for example abiword-doc-de.
 
 Abiword with the GNOME front-end is part of the GNOME Office Suite. 
 See http://www.gnomeoffice.org for details.
