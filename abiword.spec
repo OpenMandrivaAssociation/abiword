@@ -101,7 +101,6 @@ rm -fr %buildroot
 %makeinstall_std
 
 find %buildroot -name *.la|xargs rm
-find %buildroot -name *.a|xargs rm
 
 mkdir -p %buildroot%{_datadir}/applications
 desktop-file-install --vendor="" \
