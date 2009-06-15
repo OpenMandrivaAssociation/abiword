@@ -6,6 +6,7 @@ Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
+Patch0:     abiword-2.7.4-fix-desktop.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
@@ -74,6 +75,7 @@ and pkg files.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p0
  
 %build
 %define Werror_cflags %nil
@@ -102,16 +104,10 @@ rm -fr %buildroot
 
 find %buildroot -name *.la|xargs rm
 
-mkdir -p %buildroot%{_datadir}/applications
 desktop-file-install --vendor="" \
-	--remove-key='Encoding' \
-	--remove-category="Application" \
 	--remove-category="X-Red-Hat-Base" \
 	--dir %buildroot%{_datadir}/applications \
-	%name.desktop
-
-mkdir -p %buildroot%_iconsdir
-cp abiword_48.png %buildroot%_iconsdir/
+	%buildroot%{_datadir}/applications/%name.desktop
 
 %clean
 rm -fr %buildroot
