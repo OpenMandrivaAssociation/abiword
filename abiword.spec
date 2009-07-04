@@ -56,6 +56,7 @@ Obsoletes:	abiword-plugin-ots < 2.7.2
 Obsoletes:	abiword-plugin-shell < 2.7.2
 Obsoletes:	abiword-plugin-urldict < 2.7.2
 Obsoletes:	abiword-plugin-wikipedia < 2.7.2
+Obsoletes:	abiword-plugin-gdict < 2.7.2
 
 %description
 AbiWord is a cross-platform, open source, lean and fast full-featured word
