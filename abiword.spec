@@ -6,6 +6,7 @@ Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
+Patch0:     abiword-2.7.8-linkage.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
@@ -75,8 +76,10 @@ and pkg files.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p0
  
 %build
+autoreconf -fi
 %define Werror_cflags %nil
 %configure2_5x \
 	--disable-static \
