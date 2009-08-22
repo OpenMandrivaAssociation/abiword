@@ -1,7 +1,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.7.8
-Release:    %mkrel 2
+Release:    %mkrel 3
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -57,6 +57,9 @@ Obsoletes:	abiword-plugin-shell < 2.7.2
 Obsoletes:	abiword-plugin-urldict < 2.7.2
 Obsoletes:	abiword-plugin-wikipedia < 2.7.2
 Obsoletes:	abiword-plugin-gdict < 2.7.2
+Obsoletes:	%{_lib}abiword < 2.7.2
+
+Suggests:	abiword-doc
 
 %description
 AbiWord is a cross-platform, open source, lean and fast full-featured word
