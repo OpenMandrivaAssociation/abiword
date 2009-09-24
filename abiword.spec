@@ -85,6 +85,7 @@ and pkg files.
 autoreconf -fi
 %define Werror_cflags %nil
 %configure2_5x \
+	--enable_dynamic=yes \
 	--disable-static \
 	--enable-default-plugins \
 	--enable-emacs-keybinding \
