@@ -123,15 +123,15 @@ rm -fr %buildroot
 %files
 %defattr(-,root,root)
 %{_bindir}/abiword
-%{_datadir}/abiword-2.7
-%{_libdir}/libabiword-2.7.so
-%dir %{_libdir}/abiword-2.7
-%dir %{_libdir}/abiword-2.7/plugins
-%{_libdir}/abiword-2.7/plugins/*.so
+%{_datadir}/abiword-2.8
+%{_libdir}/libabiword-2.8.so
+%dir %{_libdir}/abiword-2.8
+%dir %{_libdir}/abiword-2.8/plugins
+%{_libdir}/abiword-2.8/plugins/*.so
 %{_datadir}/applications/*.desktop
 %{_iconsdir}/*.png
 
 %files devel
 %defattr(-,root,root)
-%{_includedir}/abiword-2.7
-%{_libdir}/pkgconfig/abiword-2.7.pc
+%{_includedir}/abiword-2.8
+%{_libdir}/pkgconfig/abiword-2.8.pc
