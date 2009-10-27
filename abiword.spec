@@ -1,13 +1,12 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.8.0
-Release:    %mkrel -c svn28229 1
+Release:    %mkrel 1
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Patch0:     abiword-2.8.0-linkage.patch
-Patch1:     abiword-2.7.10-fix-build.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
@@ -82,10 +81,12 @@ and pkg files.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p0
-%patch1 -p0
+
+# needed by patch0
+libtoolize --copy --force
+autoreconf
  
 %build
-NOCONFIGURE=yes ./autogen.sh
 %define Werror_cflags %nil
 %configure2_5x \
 	--disable-static \
