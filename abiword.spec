@@ -131,6 +131,7 @@ rm -fr %buildroot
 %dir %{_libdir}/abiword-2.8
 %dir %{_libdir}/abiword-2.8/plugins
 %{_libdir}/abiword-2.8/plugins/*.so
+%{_mandir}/man1/abiword.1.*
 %{_datadir}/applications/*.desktop
 %{_iconsdir}/*.png
 
