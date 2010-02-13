@@ -7,7 +7,7 @@ URL:        http://www.abisource.com/
 License:    GPLv2+
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Patch0:     abiword-2.8.0-linkage.patch
-Patch1:     abiword-2.7.10-fix-build.patch
+Patch1:     abiword-2.8.2-fix-build.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
