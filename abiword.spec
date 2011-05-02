@@ -1,13 +1,15 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.8.6
-Release:    %mkrel 1
+Release:    %mkrel 2
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Patch0:     abiword-2.8.0-linkage.patch
 Patch1:     abiword-2.8.2-fix-build.patch
+Patch2:		abiword-2.8.6-libwpd.patch
+Patch3:		abiword-2.6.0-boolean.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
@@ -25,7 +27,7 @@ BuildRequires:	gtk+2-devel >= 2.12.0
 BuildRequires:	librsvg2-devel >= 2.16.0
 BuildRequires:	libxslt-devel
 BuildRequires:	libwpg-devel >= 0.1.0
-BuildRequires:	libwpd-0.8-devel >= 0.8.0
+BuildRequires:	libwpd-devel >= 0.8.0
 BuildRequires:	libwps-devel >= 0.1.0
 BuildRequires:  readline-devel
 BuildRequires:	gtkmathview-devel >= 0.7.5
@@ -83,6 +85,8 @@ and pkg files.
 %setup -q -n %{name}-%{version}
 %patch0 -p0
 %patch1 -p0
+%patch2 -p0
+%patch3 -p1
 
 # needed by patch0
 libtoolize --copy --force
