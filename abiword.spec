@@ -30,6 +30,7 @@ BuildRequires:	libxslt-devel
 BuildRequires:	libwpg-devel >= 0.1.0
 BuildRequires:	libwpd-devel >= 0.8.0
 BuildRequires:	libwps-devel >= 0.1.0
+BuildRequires:	libgsf-devel
 BuildRequires:  readline-devel
 BuildRequires:	gtkmathview-devel >= 0.7.5
 BuildRequires:	libpsiconv-devel
