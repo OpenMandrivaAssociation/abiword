@@ -10,6 +10,7 @@ Patch0:     abiword-2.8.0-linkage.patch
 Patch1:     abiword-2.8.2-fix-build.patch
 Patch2:		abiword-2.8.6-libwpd.patch
 Patch3:		abiword-2.6.0-boolean.patch
+Patch4:		abiword-2.8.6-gcc46.patch
 BuildRoot:  %_tmppath/%name-%version-buildroot
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
@@ -87,10 +88,11 @@ and pkg files.
 %patch1 -p0
 %patch2 -p0
 %patch3 -p1
+%patch4 -p0
 
 # needed by patch0
 libtoolize --copy --force
-autoreconf
+autoreconf -fi
  
 %build
 %define Werror_cflags %nil
@@ -107,7 +109,6 @@ enable_dynamic=yes %configure2_5x \
 	--enable-collab-backend-service \
 	--with-gio \
 	--with-goffice \
-	--with-gucharmap \
 	--with-inter7eps \
 	--with-libtidy \
 	--enable-plugins="wml goffice freetranslation latex eml gimp mif loadbindings babelfish wpg openxml mswrite wordperfect mathview urldict presentation pdb psion collab google paint hancom xslfo opendocument openwriter t602 iscii wmf ots command sdw gdict opml clarisworks kword pdf grammar passepartout applix aiksaurus wikipedia hrtext s5 docbook"
