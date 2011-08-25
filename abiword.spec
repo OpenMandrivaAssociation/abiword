@@ -92,6 +92,7 @@ and pkg files.
 %patch2 -p0
 %patch3 -p1
 %patch4 -p0
+%patch5 -p0
 
 # needed by patch0
 libtoolize --copy --force
