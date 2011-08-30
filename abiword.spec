@@ -46,6 +46,7 @@ BuildRequires:	asio
 BuildRequires:	ots-devel
 BuildRequires:	link-grammar-devel >= 4.2.1
 BuildRequires:	aiksaurusgtk-devel
+Buildrequires:	automake
 
 Obsoletes:	abiword-plugin-abicollab < 2.7.2
 Obsoletes:	abiword-plugin-abicommand < 2.7.2
