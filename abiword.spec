@@ -119,7 +119,7 @@ desktop-file-install --vendor="" \
 
 %files
 %{_bindir}/abiword
-%{_datadir}/abiword-%{api)
+%{_datadir}/abiword-%{api}
 %dir %{_libdir}/abiword-%{api}
 %dir %{_libdir}/abiword-%{api}/plugins
 %{_libdir}/abiword-%{api}/plugins/*.so
