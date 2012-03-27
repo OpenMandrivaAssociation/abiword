@@ -1,72 +1,62 @@
+%define Werror_cflags %nil
+%define api %(echo %{version} | cut -d. -f1,2)
+
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
-Version:    2.8.6
-Release:    %mkrel 3
+Version:    2.9.2
+Release:    1
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
-Source1:    abiword.desktop
-Patch0:     abiword-2.8.0-linkage.patch
-Patch1:     abiword-2.8.2-fix-build.patch
-Patch2:		abiword-2.8.6-libwpd.patch
-Patch3:		abiword-2.6.0-boolean.patch
-Patch4:		abiword-2.8.6-gcc46.patch
-Patch5:		abiword.desktop.patch
-BuildRoot:  %_tmppath/%name-%version-buildroot
+# missing header
+Source1:	http://svn.abisource.com/abiword/trunk/plugins/collab/backends/telepathy/unix/TelepathyBuddy.h
+Patch0:		abiword-2.9.2-glib.patch
+Patch1:		abiword-2.9.2-libpng15.patch
+Patch2:		abiword-2.9.2-linkage.patch
+
+BuildRequires:	asio
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
-BuildRequires:	libglade2-devel
-BuildRequires:	goffice-devel >= 0.7.7
-BuildRequires:	fribidi-devel >= 0.10.4
-BuildRequires:	glib2-devel >= 2.6.0
-BuildRequires:	libgsf-1-devel >= 1.14.9
-BuildRequires:	wv-devel >= 1.2.0
-BuildRequires:	enchant-devel >= 1.2.0
-BuildRequires:	gnome-vfs2-devel >= 2.2.0
-BuildRequires:	gucharmap-devel
-BuildRequires:	cairo-devel
-BuildRequires:	gtk+2-devel >= 2.12.0
-BuildRequires:	librsvg2-devel >= 2.16.0
-BuildRequires:	libxslt-devel
-BuildRequires:	libwpg-devel >= 0.1.0
-BuildRequires:	libwpd-devel >= 0.8.0
-BuildRequires:	libwps-devel >= 0.1.0
-BuildRequires:	libgsf-devel
-BuildRequires:  readline-devel
-BuildRequires:	gtkmathview-devel >= 0.7.5
-BuildRequires:	libpsiconv-devel
-BuildRequires:	libxml2-devel >= 2.4.0
-BuildRequires:	loudmouth-devel >= 1.0.1
-BuildRequires:	dbus-glib-devel >= 0.70
-BuildRequires:	libsoup-2.4-devel
+BuildRequires:	gnome-common
+BuildRequires:	boost-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	libgcrypt-devel
 BuildRequires:	libwmf-devel
-BuildRequires:	boost-devel >= 1.33.0
-BuildRequires:	asio
-BuildRequires:	ots-devel
-BuildRequires:	link-grammar-devel >= 4.2.1
-BuildRequires:	aiksaurusgtk-devel
-Buildrequires:	automake
-
-Obsoletes:	abiword-plugin-abicollab < 2.7.2
-Obsoletes:	abiword-plugin-abicommand < 2.7.2
-Obsoletes:	abiword-plugin-abigimp < 2.7.2
-Obsoletes:	abiword-plugin-abigoffice < 2.7.2
-Obsoletes:	abiword-plugin-abigrammar < 2.7.2
-Obsoletes:	abiword-plugin-abimathview < 2.7.2
-Obsoletes:	abiword-plugin-abipsion < 2.7.2
-Obsoletes:	abiword-plugin-aiksaurus < 2.7.2
-Obsoletes:	abiword-plugin-babelfish < 2.7.2
-Obsoletes:	abiword-plugin-freetranslation < 2.7.2
-Obsoletes:	abiword-plugin-google < 2.7.2
-Obsoletes:	abiword-plugin-graphics < 2.7.2
-Obsoletes:	abiword-plugin-impexp < 2.7.2
-Obsoletes:	abiword-plugin-ots < 2.7.2
-Obsoletes:	abiword-plugin-shell < 2.7.2
-Obsoletes:	abiword-plugin-urldict < 2.7.2
-Obsoletes:	abiword-plugin-wikipedia < 2.7.2
-Obsoletes:	abiword-plugin-gdict < 2.7.2
-Obsoletes:	%{_lib}abiword < 2.7.2
+BuildRequires:	psiconv-devel
+BuildRequires:	readline-devel
+BuildRequires:	tidy-devel
+BuildRequires:	pkgconfig(aiksaurus-1.0)
+BuildRequires:	pkgconfig(cairo-pdf)
+BuildRequires:	pkgconfig(cairo-ps)
+BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(enchant)
+BuildRequires:	pkgconfig(fribidi)
+BuildRequires:	pkgconfig(gaiksaurus-1.0)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gnutls)
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(libebook-1.2)
+BuildRequires:	pkgconfig(libecal-1.2)
+BuildRequires:	pkgconfig(libgoffice-0.10)
+BuildRequires:	pkgconfig(libgsf-1)
+BuildRequires:	pkgconfig(libical)
+BuildRequires:	pkgconfig(libots-1)
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(librsvg-2.0)
+BuildRequires:	pkgconfig(libsoup-2.4)
+BuildRequires:	pkgconfig(libwpd-0.9)
+BuildRequires:	pkgconfig(libwpg-0.2)
+BuildRequires:	pkgconfig(libwps-0.2)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(link-grammar)
+BuildRequires:	pkgconfig(loudmouth-1.0)
+BuildRequires:	pkgconfig(mathview-frontend-libxml2)
+BuildRequires:	pkgconfig(pangocairo)
+BuildRequires:	pkgconfig(rasqal)
+BuildRequires:	pkgconfig(redland)
+BuildRequires:	pkgconfig(telepathy-glib)
+BuildRequires:	pkgconfig(wv-1.0)
 
 Suggests:	abiword-doc
 
@@ -79,7 +69,7 @@ See http://www.gnomeoffice.org for details.
 
 %package devel
 Summary:	Devel files for Abiword
-Group:	Development/Other
+Group:		Development/Other
 Requires:	%{name} = %{version}
 
 %description devel
@@ -87,20 +77,17 @@ This pacakage contains devel files for Abiword, mainly header files
 and pkg files.
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
-%patch3 -p1
-%patch4 -p0
-%patch5 -p0
+%setup -q
+# missing header
+cp %{SOURCE1} plugins/collab/backends/telepathy/unix/
+%apply_patches
 
-# needed by patch0
-libtoolize --copy --force
-autoreconf -fi
+sed -i -e 's/goffice_req >= 0.10.0/goffice_req/' \
+	-e 's/libgoffice-0.10 >= 0.10.0/libgoffice-0.10/' \
+	configure plugin-configure.m4 \
+	plugins/goffice/plugin.m4 configure.in
  
 %build
-%define Werror_cflags %nil
 enable_dynamic=yes %configure2_5x \
 	--disable-static \
 	--enable-default-plugins \
@@ -117,35 +104,33 @@ enable_dynamic=yes %configure2_5x \
 	--with-inter7eps \
 	--with-libtidy \
 	--enable-plugins="wml goffice freetranslation latex eml gimp mif loadbindings babelfish wpg openxml mswrite wordperfect mathview urldict presentation pdb psion collab google paint hancom xslfo opendocument openwriter t602 iscii wmf ots command sdw gdict opml clarisworks kword pdf grammar passepartout applix aiksaurus wikipedia hrtext s5 docbook"
+
 %make
 
 %install
-rm -fr %buildroot
 %makeinstall_std
 
-find %buildroot -name *.la|xargs rm
+find %{buildroot} -name *.la|xargs rm
 
 desktop-file-install --vendor="" \
 	--remove-category="X-Red-Hat-Base" \
-	--dir %buildroot%{_datadir}/applications \
-	%buildroot%{_datadir}/applications/%name.desktop
-
-%clean
-rm -fr %buildroot
+	--dir %{buildroot}%{_datadir}/applications \
+	%{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files
-%defattr(-,root,root)
 %{_bindir}/abiword
-%{_datadir}/abiword-2.8
-%{_libdir}/libabiword-2.8.so
-%dir %{_libdir}/abiword-2.8
-%dir %{_libdir}/abiword-2.8/plugins
-%{_libdir}/abiword-2.8/plugins/*.so
-%{_mandir}/man1/abiword.1.*
+%{_datadir}/abiword-%{api)
+%dir %{_libdir}/abiword-%{api}
+%dir %{_libdir}/abiword-%{api}/plugins
+%{_libdir}/abiword-%{api}/plugins/*.so
 %{_datadir}/applications/*.desktop
+%{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
+%{_datadir}/telepathy/clients/AbiCollab.client
 %{_iconsdir}/*.png
+%{_mandir}/man1/abiword.1.*
 
 %files devel
-%defattr(-,root,root)
-%{_includedir}/abiword-2.8
-%{_libdir}/pkgconfig/abiword-2.8.pc
+%{_includedir}/abiword-%{api}
+%{_libdir}/libabiword-%{api}.so
+%{_libdir}/pkgconfig/abiword-%{api}.pc
+
