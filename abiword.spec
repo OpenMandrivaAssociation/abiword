@@ -4,7 +4,7 @@
 Name:       abiword
 Summary:    Lean and fast full-featured word processor
 Version:    2.9.2
-Release:    1
+Release:    2
 Group:      Office
 URL:        http://www.abisource.com/
 License:    GPLv2+
@@ -59,6 +59,9 @@ BuildRequires:	pkgconfig(telepathy-glib)
 BuildRequires:	pkgconfig(wv-1.0)
 
 Suggests:	abiword-doc
+# no versioned lib was in the devel pkg
+# and mistaken for a devel lib
+Obsolete:	abiword-devel < 2.9.2-2
 
 %description
 AbiWord is a cross-platform, open source, lean and fast full-featured word
@@ -123,6 +126,8 @@ desktop-file-install --vendor="" \
 %dir %{_libdir}/abiword-%{api}
 %dir %{_libdir}/abiword-%{api}/plugins
 %{_libdir}/abiword-%{api}/plugins/*.so
+# this isnt a devel lib
+%{_libdir}/libabiword-%{api}.so
 %{_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
 %{_datadir}/telepathy/clients/AbiCollab.client
@@ -131,6 +136,5 @@ desktop-file-install --vendor="" \
 
 %files devel
 %{_includedir}/abiword-%{api}
-%{_libdir}/libabiword-%{api}.so
 %{_libdir}/pkgconfig/abiword-%{api}.pc
 
