@@ -61,7 +61,7 @@ BuildRequires:	pkgconfig(wv-1.0)
 Suggests:	abiword-doc
 # no versioned lib was in the devel pkg
 # and mistaken for a devel lib
-Obsolete:	abiword-devel < 2.9.2-2
+Obsoletes:	abiword-devel < 2.9.2-2
 
 %description
 AbiWord is a cross-platform, open source, lean and fast full-featured word
