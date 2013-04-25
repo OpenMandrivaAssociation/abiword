@@ -11,6 +11,7 @@ License:    GPLv2+
 Source0:    http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 # missing header
 Source1:	http://svn.abisource.com/abiword/trunk/plugins/collab/backends/telepathy/unix/TelepathyBuddy.h
+Source100:	abiword.rpmlintrc
 Patch0:		abiword-2.9.3-rosa-libebook_h.patch
 
 BuildRequires:	asio
