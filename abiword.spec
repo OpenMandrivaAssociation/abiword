@@ -86,6 +86,7 @@ sed -i -e 's/goffice_req >= 0.10.0/goffice_req/' \
 	-e 's/libgoffice-0.10 >= 0.10.0/libgoffice-0.10/' \
 	configure plugin-configure.m4 \
 	plugins/goffice/plugin.m4 configure.in
+autoreconf -fiv
  
 %build
 enable_dynamic=yes %configure2_5x \
