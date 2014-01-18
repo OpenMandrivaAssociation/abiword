@@ -61,17 +61,39 @@ Suggests:	abiword-doc
 AbiWord is a cross-platform, open source, lean and fast full-featured word
 processor. It works on Most Unix systems, Microsoft Windows and Mac OS X.
 
-Abiword with the GNOME front-end is part of the GNOME Office Suite. 
+Abiword with the GNOME front-end is part of the GNOME Office Suite.
 See http://www.gnomeoffice.org for details.
+
+%files
+%{_bindir}/abiword
+%{_datadir}/abiword-%{api}
+%dir %{_libdir}/abiword-%{api}
+%dir %{_libdir}/abiword-%{api}/plugins
+%{_libdir}/abiword-%{api}/plugins/*.so
+# this isnt a devel lib
+%{_libdir}/libabiword-%{api}.so
+%{_datadir}/applications/*.desktop
+%{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
+%{_datadir}/telepathy/clients/AbiCollab.client
+%{_iconsdir}/hicolor/*/*
+%{_mandir}/man1/abiword.1.*
+
+#----------------------------------------------------------------------------
 
 %package devel
 Summary:	Devel files for Abiword
 Group:		Development/Other
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{EVRD}
 
 %description devel
 This pacakage contains devel files for Abiword, mainly header files
 and pkg files.
+
+%files devel
+%{_includedir}/abiword-%{api}
+%{_libdir}/pkgconfig/abiword-%{api}.pc
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -q
@@ -105,21 +127,4 @@ desktop-file-install --vendor="" \
 	--dir %{buildroot}%{_datadir}/applications \
 	%{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%files
-%{_bindir}/abiword
-%{_datadir}/abiword-%{api}
-%dir %{_libdir}/abiword-%{api}
-%dir %{_libdir}/abiword-%{api}/plugins
-%{_libdir}/abiword-%{api}/plugins/*.so
-# this isnt a devel lib
-%{_libdir}/libabiword-%{api}.so
-%{_datadir}/applications/*.desktop
-%{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
-%{_datadir}/telepathy/clients/AbiCollab.client
-%{_iconsdir}/hicolor/*/*
-%{_mandir}/man1/abiword.1.*
-
-%files devel
-%{_includedir}/abiword-%{api}
-%{_libdir}/pkgconfig/abiword-%{api}.pc
 
