@@ -1,3 +1,5 @@
-#false positive
+# False positive
 addFilter('E: incoherent-version-in-name')
+# Possibly needs to be fixed but it requires much effort with patching
+addFilter('E: executable-in-library-package')
 
