@@ -4,13 +4,14 @@
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
 Version:	3.0.0
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Office
 Url:		http://www.abisource.com/
 Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Source100:	abiword.rpmlintrc
 Patch0:		abiword-2.9.3-rosa-libebook_h.patch
+Patch1:		abiword-3.0.0-collab-boost.patch
 BuildRequires:	asio
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
@@ -98,6 +99,7 @@ and pkg files.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 enable_dynamic=yes %configure2_5x \

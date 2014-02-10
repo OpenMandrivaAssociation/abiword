@@ -1,0 +1,11 @@
+diff -urN abiword-3.0.0/plugins/collab/backends/tcp/xp/Session.h abiword-3.0.0-patched/plugins/collab/backends/tcp/xp/Session.h
+--- abiword-3.0.0/plugins/collab/backends/tcp/xp/Session.h	2013-04-08 00:53:03.000000000 +1100
++++ abiword-3.0.0-patched/plugins/collab/backends/tcp/xp/Session.h	2014-02-10 16:26:26.000000000 +1100
+@@ -22,6 +22,7 @@
+ #include <boost/function.hpp>
+ #include <boost/bind.hpp>
+ #include <boost/enable_shared_from_this.hpp>
++#include <boost/noncopyable.hpp>
+ #include <deque>
+ #include <sync/xp/lock.h>
+ #include <sync/xp/Synchronizer.h>
