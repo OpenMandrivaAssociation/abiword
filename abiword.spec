@@ -43,9 +43,9 @@ BuildRequires:	pkgconfig(libots-1)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libsoup-2.4)
-BuildRequires:	pkgconfig(libwpd-0.9)
-BuildRequires:	pkgconfig(libwpg-0.2)
-BuildRequires:	pkgconfig(libwps-0.2)
+BuildRequires:	pkgconfig(libwpd-0.10)
+BuildRequires:	pkgconfig(libwpg-0.3)
+BuildRequires:	pkgconfig(libwps-0.3)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(link-grammar)
 BuildRequires:	pkgconfig(loudmouth-1.0)
@@ -102,7 +102,7 @@ and pkg files.
 %patch1 -p1
 
 %build
-enable_dynamic=yes %configure2_5x \
+enable_dynamic=yes %configure \
 	--disable-static \
 	--enable-default-plugins \
 	--enable-emacs-keybinding \
