@@ -10,7 +10,9 @@ Group:		Office
 Url:		http://www.abisource.com/
 Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Source100:	abiword.rpmlintrc
+Patch1:		abiword-3.0.0-librevenge.patch
 BuildRequires:	asio
+BuildRequires:	autoconf
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
@@ -69,6 +71,7 @@ See http://www.gnomeoffice.org for details.
 %dir %{_libdir}/abiword-%{api}
 %dir %{_libdir}/abiword-%{api}/plugins
 %{_libdir}/abiword-%{api}/plugins/*.so
+%{_libdir}/libAiksaurusGtk3*.so
 # this isnt a devel lib
 %{_libdir}/libabiword-%{api}.so
 %{_datadir}/applications/*.desktop
@@ -96,8 +99,10 @@ and pkg files.
 
 %prep
 %setup -q
+%patch1 -p0
 
 %build
+autoreconf -fiv
 enable_dynamic=yes %configure \
 	--disable-static \
 	--enable-default-plugins \
