@@ -1183,25 +1183,3 @@ Index: plugins/wordperfect/plugin.m4
  	WPS_DEFINE=" -DHAVE_LIBWPS"
  ])
  
---- plugin-configure.m4.orig	2015-04-15 23:15:21.127232950 +0100
-+++ plugin-configure.m4	2015-04-15 23:16:27.896228031 +0100
-@@ -1355,7 +1355,7 @@
- AC_SUBST([BMP_LIBS])
- 
- 
--wpg_pkgs="$gsf_req libwpg-0.2 >= 0.2.0 libwpd-0.9 >= 0.9.0 libwpd-stream-0.9 >= 0.9.0"
-+wpg_pkgs="libwpg-0.3 $gsf_req"
- wpg_deps="no"
- 
- if test "$enable_wpg" != ""; then
-@@ -1469,8 +1469,8 @@
- AC_SUBST([AIKSAURUS_LIBS])
- 
- 
--wordperfect_pkgs="libwpg-0.2 >= 0.2.0 libwpd-0.9 >= 0.9.0 libwpd-stream-0.9 >= 0.9.0 $gsf_req"
--wordperfect_wps_pkgs='libwps-0.2 >= 0.1.0'
-+wordperfect_pkgs="libwpd-0.10 $gsf_req"
-+wordperfect_wps_pkgs='libwps-0.3'
- wordperfect_deps="no"
- 
- WORDPERFECT_CFLAGS=

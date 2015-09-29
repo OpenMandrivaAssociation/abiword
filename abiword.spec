@@ -4,13 +4,15 @@
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
 Version:	3.0.1
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Office
 Url:		http://www.abisource.com/
 Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Source100:	abiword.rpmlintrc
 Patch1:		abiword-3.0.0-librevenge.patch
+Patch2:		abiword-3.0.0-libwp.patch
+Patch3:		abiword-3.0.1-libwps-0.4.patch
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -45,7 +47,7 @@ BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libsoup-2.4)
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
-BuildRequires:	pkgconfig(libwps-0.3)
+BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(link-grammar)
 BuildRequires:	pkgconfig(loudmouth-1.0)
@@ -100,6 +102,8 @@ and pkg files.
 %prep
 %setup -q
 %patch1 -p0
+%patch2 -p1
+%patch3 -p1
 
 %build
 autoreconf -fiv
