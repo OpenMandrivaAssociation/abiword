@@ -1,7 +1,7 @@
 Index: plugins/wpg/xp/ie_impGraphic_WPG.cpp
 ===================================================================
---- plugins/wpg/xp/ie_impGraphic_WPG.cpp	(revision 34460)
-+++ plugins/wpg/xp/ie_impGraphic_WPG.cpp	(working copy)
+--- a/plugins/wpg/xp/ie_impGraphic_WPG.cpp	(revision 34460)
++++ b/plugins/wpg/xp/ie_impGraphic_WPG.cpp	(working copy)
 @@ -31,7 +31,7 @@
  #include <gsf/gsf-input-memory.h>
  #include <gsf/gsf-input-stdio.h>
@@ -256,8 +256,8 @@ Index: plugins/wpg/xp/ie_impGraphic_WPG.cpp
  
 Index: plugins/wpg/plugin.m4
 ===================================================================
---- plugins/wpg/plugin.m4	(revision 34460)
-+++ plugins/wpg/plugin.m4	(working copy)
+--- a/plugins/wpg/plugin.m4	(revision 34460)
++++ b/plugins/wpg/plugin.m4	(working copy)
 @@ -1,5 +1,5 @@
  
 -wpg_pkgs="$gsf_req libwpg-0.2 >= 0.2.0 libwpd-0.9 >= 0.9.0 libwpd-stream-0.9 >= 0.9.0"
@@ -267,8 +267,8 @@ Index: plugins/wpg/plugin.m4
  if test "$enable_wpg" != ""; then
 Index: plugins/wordperfect/xp/ie_imp_WordPerfect.h
 ===================================================================
---- plugins/wordperfect/xp/ie_imp_WordPerfect.h	(revision 34460)
-+++ plugins/wordperfect/xp/ie_imp_WordPerfect.h	(working copy)
+--- a/plugins/wordperfect/xp/ie_imp_WordPerfect.h	(revision 34460)
++++ b/plugins/wordperfect/xp/ie_imp_WordPerfect.h	(working copy)
 @@ -30,7 +30,7 @@
  #define IE_IMP_WP_H
  
@@ -424,8 +424,8 @@ Index: plugins/wordperfect/xp/ie_imp_WordPerfect.h
      UT_Error							_appendSection(int numColumns, const float, const float);
 Index: plugins/wordperfect/xp/ie_impexp_WordPerfect.cpp
 ===================================================================
---- plugins/wordperfect/xp/ie_impexp_WordPerfect.cpp	(revision 34460)
-+++ plugins/wordperfect/xp/ie_impexp_WordPerfect.cpp	(working copy)
+--- a/plugins/wordperfect/xp/ie_impexp_WordPerfect.cpp	(revision 34460)
++++ b/plugins/wordperfect/xp/ie_impexp_WordPerfect.cpp	(working copy)
 @@ -35,7 +35,6 @@
  ABI_PLUGIN_DECLARE("WordPerfect")
  
@@ -478,8 +478,8 @@ Index: plugins/wordperfect/xp/ie_impexp_WordPerfect.cpp
  	delete m_MSWorks_ImpSniffer;
 Index: plugins/wordperfect/xp/ie_imp_WordPerfect.cpp
 ===================================================================
---- plugins/wordperfect/xp/ie_imp_WordPerfect.cpp	(revision 34460)
-+++ plugins/wordperfect/xp/ie_imp_WordPerfect.cpp	(working copy)
+--- a/plugins/wordperfect/xp/ie_imp_WordPerfect.cpp	(revision 34460)
++++ b/plugins/wordperfect/xp/ie_imp_WordPerfect.cpp	(working copy)
 @@ -31,6 +31,8 @@
  #include <stdlib.h>
  #include <string.h>
@@ -1138,8 +1138,8 @@ Index: plugins/wordperfect/xp/ie_imp_WordPerfect.cpp
  			return UT_CONFIDENCE_ZILCH;
 Index: plugins/wordperfect/xp/Makefile.am
 ===================================================================
---- plugins/wordperfect/xp/Makefile.am	(revision 34460)
-+++ plugins/wordperfect/xp/Makefile.am	(working copy)
+--- a/plugins/wordperfect/xp/Makefile.am	(revision 34460)
++++ b/plugins/wordperfect/xp/Makefile.am	(working copy)
 @@ -6,8 +6,6 @@
  	-DABI_BUILD_VERSION=\"$(VERSION)\"
  
@@ -1151,8 +1151,8 @@ Index: plugins/wordperfect/xp/Makefile.am
  	ie_imp_WordPerfect.cpp \
 Index: plugins/wordperfect/xp/ie_impexp_WordPerfect.h
 ===================================================================
---- plugins/wordperfect/xp/ie_impexp_WordPerfect.h	(revision 34460)
-+++ plugins/wordperfect/xp/ie_impexp_WordPerfect.h	(working copy)
+--- a/plugins/wordperfect/xp/ie_impexp_WordPerfect.h	(revision 34460)
++++ b/plugins/wordperfect/xp/ie_impexp_WordPerfect.h	(working copy)
 @@ -24,7 +24,6 @@
   */
  
@@ -1163,8 +1163,8 @@ Index: plugins/wordperfect/xp/ie_impexp_WordPerfect.h
  #define IE_MIMETYPE_WP_51			"application/wordperfect5.1"
 Index: plugins/wordperfect/plugin.m4
 ===================================================================
---- plugins/wordperfect/plugin.m4	(revision 34460)
-+++ plugins/wordperfect/plugin.m4	(working copy)
+--- a/plugins/wordperfect/plugin.m4	(revision 34460)
++++ b/plugins/wordperfect/plugin.m4	(working copy)
 @@ -1,6 +1,6 @@
  
 -wordperfect_pkgs="libwpg-0.2 >= 0.2.0 libwpd-0.9 >= 0.9.0 libwpd-stream-0.9 >= 0.9.0 $gsf_req"

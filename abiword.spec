@@ -1,5 +1,7 @@
 %define Werror_cflags %nil
 %define api %(echo %{version} | cut -d. -f1,2)
+%define _disable_rebuild_configure 1
+%define _disable_lto 1
 
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
@@ -13,6 +15,7 @@ Source100:	abiword.rpmlintrc
 Patch1:		abiword-3.0.0-librevenge.patch
 Patch2:		abiword-3.0.0-libwp.patch
 Patch3:		abiword-3.0.1-libwps-0.4.patch
+Patch4:		abiword-3.0.1-gnutls.patch
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -101,9 +104,7 @@ and pkg files.
 
 %prep
 %setup -q
-%patch1 -p0
-%patch2 -p1
-%patch3 -p1
+%apply_patches
 
 %build
 autoreconf -fiv
