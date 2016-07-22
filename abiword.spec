@@ -107,6 +107,12 @@ and pkg files.
 %apply_patches
 
 %build
+%ifarch %ix86
+# clang crashes
+export CC=gcc
+export CXX=g++
+%endif
+
 autoreconf -fiv
 enable_dynamic=yes %configure \
 	--disable-static \
