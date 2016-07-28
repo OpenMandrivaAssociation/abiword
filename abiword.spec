@@ -6,7 +6,7 @@
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
 Version:	3.0.1
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Office
 Url:		http://www.abisource.com/
@@ -34,7 +34,6 @@ BuildRequires:	pkgconfig(champlain-0.12)
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(enchant)
 BuildRequires:	pkgconfig(fribidi)
-BuildRequires:	pkgconfig(gaiksaurus-1.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(gtk+-3.0)
@@ -76,7 +75,7 @@ See http://www.gnomeoffice.org for details.
 %dir %{_libdir}/abiword-%{api}
 %dir %{_libdir}/abiword-%{api}/plugins
 %{_libdir}/abiword-%{api}/plugins/*.so
-%{_libdir}/libAiksaurusGtk3*.so
+%{_libdir}/libAiksaurusGtk3--export-dynamic.so
 # this isnt a devel lib
 %{_libdir}/libabiword-%{api}.so
 %{_datadir}/applications/*.desktop
@@ -98,6 +97,7 @@ and pkg files.
 
 %files devel
 %{_includedir}/abiword-%{api}
+%{_libdir}/libAiksaurusGtk3.so
 %{_libdir}/pkgconfig/abiword-%{api}.pc
 
 #----------------------------------------------------------------------------
