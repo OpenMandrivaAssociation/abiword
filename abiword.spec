@@ -5,17 +5,16 @@
 
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
-Version:	3.0.1
-Release:	4
+Version:	3.0.2
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		http://www.abisource.com/
 Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Source100:	abiword.rpmlintrc
 Patch1:		abiword-3.0.0-librevenge.patch
-Patch2:		abiword-3.0.0-libwp.patch
-Patch3:		abiword-3.0.1-libwps-0.4.patch
-Patch4:		abiword-3.0.1-gnutls.patch
+Patch2:		abiword-3.0.2-wpx.patch
+Patch3:		abiword-3.0.2-clang.patch
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -26,7 +25,6 @@ BuildRequires:	jpeg-devel
 BuildRequires:	libwmf-devel
 BuildRequires:	psiconv-devel
 BuildRequires:	readline-devel
-BuildRequires:	tidy-devel
 BuildRequires:	pkgconfig(aiksaurus-1.0)
 BuildRequires:	pkgconfig(cairo-pdf)
 BuildRequires:	pkgconfig(cairo-ps)
@@ -107,16 +105,13 @@ and pkg files.
 %apply_patches
 
 %build
-%ifarch %ix86
-# clang crashes
 export CC=gcc
-export CXX=g++
-%endif
+export CXX="g++ -std=gnu++11"
 
 autoreconf -fiv
 enable_dynamic=yes %configure \
 	--disable-static \
-	--enable-default-plugins \
+	--enable-plugins \
 	--enable-emacs-keybinding \
 	--enable-vi-keybinding \
 	--enable-clipart \
@@ -126,10 +121,7 @@ enable_dynamic=yes %configure \
 	--enable-collab-backend-sugar \
 	--enable-collab-backend-service \
 	--with-gio \
-	--with-goffice \
-	--with-inter7eps \
-	--with-libtidy \
-	--enable-plugins="wml goffice freetranslation latex eml gimp mif loadbindings babelfish wpg openxml mswrite wordperfect mathview urldict presentation pdb psion collab google paint hancom xslfo opendocument openwriter t602 iscii wmf ots command sdw gdict opml clarisworks kword pdf grammar passepartout applix aiksaurus wikipedia hrtext s5 docbook"
+	--with-goffice
 
 %make
 
