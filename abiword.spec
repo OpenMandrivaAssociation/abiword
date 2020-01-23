@@ -16,7 +16,7 @@ Patch1:		abiword-3.0.0-librevenge.patch
 #Patch2:		abiword-3.0.2-wpx.patch
 Patch3:		abiword-3.0.2-clang.patch
 #Patch4:		abiword-3.0.2-ical3.patch
-Patch5:		abiword-3.0.2-fix-black-drawing-regression.patch
+#Patch5:		abiword-3.0.2-fix-black-drawing-regression.patch
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	bison
