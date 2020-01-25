@@ -5,7 +5,7 @@
 
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
-Version:	3.0.2
+Version:	3.0.4
 Release:	1
 License:	GPLv2+
 Group:		Office
@@ -13,10 +13,10 @@ Url:		http://www.abisource.com/
 Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Source100:	abiword.rpmlintrc
 Patch1:		abiword-3.0.0-librevenge.patch
-Patch2:		abiword-3.0.2-wpx.patch
+#Patch2:		abiword-3.0.2-wpx.patch
 Patch3:		abiword-3.0.2-clang.patch
-Patch4:		abiword-3.0.2-ical3.patch
-Patch5:		abiword-3.0.2-fix-black-drawing-regression.patch
+#Patch4:		abiword-3.0.2-ical3.patch
+#Patch5:		abiword-3.0.2-fix-black-drawing-regression.patch
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -38,11 +38,12 @@ BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libebook-1.2)
-BuildRequires:	pkgconfig(libecal-1.2)
+BuildRequires:	pkgconfig(libecal-2.0)
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(libgoffice-0.10)
 BuildRequires:	pkgconfig(libgsf-1)
 BuildRequires:	pkgconfig(libical)
+BuildRequires:  pkgconfig(libidn)
 BuildRequires:	pkgconfig(libots-1)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -59,6 +60,7 @@ BuildRequires:	pkgconfig(rasqal)
 BuildRequires:	pkgconfig(redland)
 BuildRequires:	pkgconfig(telepathy-glib)
 BuildRequires:	pkgconfig(wv-1.0)
+BuildRequires:  t1lib1-devel
 
 Suggests:	abiword-doc
 
@@ -81,6 +83,7 @@ See http://www.gnomeoffice.org for details.
 %{_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
 %{_datadir}/telepathy/clients/AbiCollab.client
+%{_datadir}/appdata/abiword.appdata.xml
 %{_iconsdir}/hicolor/*/*
 %{_mandir}/man1/abiword.1.*
 
@@ -125,10 +128,10 @@ enable_dynamic=yes %configure \
 	--with-gio \
 	--with-goffice
 
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 desktop-file-install --vendor="" \
 	--remove-category="X-Red-Hat-Base" \
