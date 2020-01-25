@@ -60,6 +60,7 @@ BuildRequires:	pkgconfig(rasqal)
 BuildRequires:	pkgconfig(redland)
 BuildRequires:	pkgconfig(telepathy-glib)
 BuildRequires:	pkgconfig(wv-1.0)
+BuildRequires:  t1lib1-devel
 
 Suggests:	abiword-doc
 
