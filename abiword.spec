@@ -83,6 +83,7 @@ See http://www.gnomeoffice.org for details.
 %{_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
 %{_datadir}/telepathy/clients/AbiCollab.client
+%{_datadir}/appdata/abiword.appdata.xml
 %{_iconsdir}/hicolor/*/*
 %{_mandir}/man1/abiword.1.*
 
@@ -127,10 +128,10 @@ enable_dynamic=yes %configure \
 	--with-gio \
 	--with-goffice
 
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 desktop-file-install --vendor="" \
 	--remove-category="X-Red-Hat-Base" \
