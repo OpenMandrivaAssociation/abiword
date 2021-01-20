@@ -17,7 +17,7 @@ Patch1:		abiword-3.0.0-librevenge.patch
 Patch3:		abiword-3.0.2-clang.patch
 #Patch4:		abiword-3.0.2-ical3.patch
 #Patch5:		abiword-3.0.2-fix-black-drawing-regression.patch
-Patch6:		boost_asio.patch 
+
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -111,6 +111,7 @@ and pkg files.
 %autopatch -p1
 
 %build
+export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS -DASIO_ENABLE_BOOST"
 export CC=gcc
 export CXX="g++ -std=gnu++11"
 
