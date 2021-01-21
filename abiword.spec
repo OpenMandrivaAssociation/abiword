@@ -112,8 +112,8 @@ and pkg files.
 
 %build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS -DASIO_ENABLE_BOOST"
-#export CC=gcc
-#export CXX="g++ -std=gnu++11"
+export CC=gcc
+export CXX="g++ -std=gnu++14"
 
 autoreconf -fiv
 enable_dynamic=yes %configure \
