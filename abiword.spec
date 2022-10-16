@@ -6,7 +6,7 @@
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
 Version:	3.0.5
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Office
 Url:		http://www.abisource.com/
