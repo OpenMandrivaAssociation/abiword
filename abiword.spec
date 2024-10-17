@@ -9,7 +9,7 @@ Version:	3.0.5
 Release:	8
 License:	GPLv2+
 Group:		Office
-Url:		http://www.abisource.com/
+Url:		https://www.abisource.com/
 Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Source100:	abiword.rpmlintrc
 Patch1:		abiword-3.0.0-librevenge.patch
