@@ -117,7 +117,8 @@ and pkg files.
 export CC=gcc
 export CXX="g++ -std=gnu++11"
 
-autoreconf -fiv
+#autoreconf -fiv
+./autogen.sh
 enable_dynamic=yes %configure \
 	--disable-static \
 	--enable-plugins \
