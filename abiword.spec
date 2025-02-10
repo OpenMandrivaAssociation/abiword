@@ -5,12 +5,13 @@
 
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
-Version:	3.0.5
-Release:	8
+Version:	3.0.6
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		https://www.abisource.com/
-Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
+#Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
+Soirce0:	https://gitlab.gnome.org/World/AbiWord/-/archive/release-%{version}/AbiWord-release-%{version}.tar.bz2
 Source100:	abiword.rpmlintrc
 Patch1:		abiword-3.0.0-librevenge.patch
 #Patch2:		abiword-3.0.2-wpx.patch
@@ -106,8 +107,7 @@ and pkg files.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -n AbiWord-release-%{version} -p1
 
 %build
 export CC=gcc
