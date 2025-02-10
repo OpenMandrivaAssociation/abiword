@@ -20,6 +20,9 @@ Patch3:		abiword-3.0.2-clang.patch
 #Patch5:		abiword-3.0.2-fix-black-drawing-regression.patch
 BuildRequires:	asio
 BuildRequires:	autoconf
+BuildRequires:	automake 
+BuildRequires:	libtool 
+BuildRequires:	m4
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
