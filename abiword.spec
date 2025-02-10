@@ -25,6 +25,7 @@ BuildRequires:	libtool
 BuildRequires:	m4
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
+BuildRequires:	gettext
 BuildRequires:	gnome-common
 BuildRequires:	boost-devel
 BuildRequires:	jpeg-devel
