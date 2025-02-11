@@ -28,10 +28,10 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	gnome-common
 BuildRequires:	boost-devel
-BuildRequires:	jpeg-devel
-BuildRequires:	libwmf-devel
+BuildRequires:	pkgconfig(libjpeg)
+BuildRequires:	pkgconfig(libwmf)
 BuildRequires:	psiconv-devel
-BuildRequires:	readline-devel
+BuildRequires:	pkgconfig(readline)
 BuildRequires:	pkgconfig(aiksaurus-1.0)
 BuildRequires:	pkgconfig(cairo-pdf)
 BuildRequires:	pkgconfig(cairo-ps)
