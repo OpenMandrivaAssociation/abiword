@@ -114,8 +114,8 @@ and pkg files.
 %autosetup -n AbiWord-release-%{version} -p1
 
 %build
-export CC=gcc
-export CXX="g++ -std=gnu++11"
+#export CC=gcc
+#export CXX="g++ -std=gnu++11"
 
 #autoreconf -fiv
 ./autogen.sh
