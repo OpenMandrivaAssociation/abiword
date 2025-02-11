@@ -116,7 +116,7 @@ and pkg files.
 %build
 #export CC=gcc
 #export CXX="g++ -std=gnu++11"
-
+export LDFLAGS="-fuse-ld=bfd"
 #autoreconf -fiv
 ./autogen.sh
 enable_dynamic=yes %configure \
