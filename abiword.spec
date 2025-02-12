@@ -15,7 +15,7 @@ Url:		https://www.abisource.com/
 #Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
 Source0:	https://gitlab.gnome.org/World/AbiWord/-/archive/release-%{version}/AbiWord-release-%{version}.tar.bz2
 Source100:	abiword.rpmlintrc
-Patch1:		abiword-3.0.0-librevenge.patch
+#Patch1:		abiword-3.0.0-librevenge.patch
 #Patch2:		abiword-3.0.2-wpx.patch
 Patch3:		abiword-3.0.2-clang.patch
 #Patch4:		abiword-3.0.2-ical3.patch
