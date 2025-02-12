@@ -1,32 +1,35 @@
 %define Werror_cflags %nil
 %define api %(echo %{version} | cut -d. -f1,2)
 %define _disable_rebuild_configure 1
-%define _disable_lto 1
+#define _disable_lto 1
 
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
-Version:	3.0.5
-Release:	8
+Version:	3.0.6
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		https://www.abisource.com/
-Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
+#Source0:	http://www.abisource.com/downloads/abiword/%{version}/source/%{name}-%{version}.tar.gz
+Source0:	https://gitlab.gnome.org/World/AbiWord/-/archive/release-%{version}/AbiWord-release-%{version}.tar.bz2
 Source100:	abiword.rpmlintrc
-Patch1:		abiword-3.0.0-librevenge.patch
-#Patch2:		abiword-3.0.2-wpx.patch
 Patch3:		abiword-3.0.2-clang.patch
-#Patch4:		abiword-3.0.2-ical3.patch
-#Patch5:		abiword-3.0.2-fix-black-drawing-regression.patch
+
 BuildRequires:	asio
 BuildRequires:	autoconf
+BuildRequires:	automake 
+BuildRequires:	libtool 
+BuildRequires:	m4
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
+BuildRequires:  flex
+BuildRequires:	gettext
 BuildRequires:	gnome-common
 BuildRequires:	boost-devel
-BuildRequires:	jpeg-devel
-BuildRequires:	libwmf-devel
+BuildRequires:	pkgconfig(libjpeg)
+BuildRequires:	pkgconfig(libwmf)
 BuildRequires:	psiconv-devel
-BuildRequires:	readline-devel
+BuildRequires:	pkgconfig(readline)
 BuildRequires:	pkgconfig(aiksaurus-1.0)
 BuildRequires:	pkgconfig(cairo-pdf)
 BuildRequires:	pkgconfig(cairo-ps)
@@ -47,7 +50,7 @@ BuildRequires:  pkgconfig(libidn)
 BuildRequires:	pkgconfig(libots-1)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(librsvg-2.0)
-BuildRequires:	pkgconfig(libsoup-2.4)
+BuildRequires:	pkgconfig(libsoup-3.0)
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
@@ -81,8 +84,8 @@ See http://www.gnomeoffice.org for details.
 # this isnt a devel lib
 %{_libdir}/libabiword-%{api}.so
 %{_datadir}/applications/*.desktop
-%{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
-%{_datadir}/telepathy/clients/AbiCollab.client
+#{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
+#{_datadir}/telepathy/clients/AbiCollab.client
 %{_datadir}/appdata/abiword.appdata.xml
 %{_iconsdir}/hicolor/*/*
 %{_mandir}/man1/abiword.1.*
@@ -106,14 +109,17 @@ and pkg files.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -n AbiWord-release-%{version} -p1
 
 %build
-export CC=gcc
-export CXX="g++ -std=gnu++11"
-
-autoreconf -fiv
+#export CC=gcc
+#export CXX="g++ -std=gnu++11"
+# If linked with LLD - crying about: /lib64/crti.o is incompatible with elf32-i386
+# which means that the code has hardcoded -L/usr/lib, i.e. it tries to search in a 32-bit path. 
+# This has to be fixed manually (and it's a lot of work), so we change the linker to bfd or gold or mold.
+export LDFLAGS="-fuse-ld=bfd"
+#autoreconf -fiv
+./autogen.sh
 enable_dynamic=yes %configure \
 	--disable-static \
 	--enable-plugins \
