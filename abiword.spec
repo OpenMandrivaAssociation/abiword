@@ -3,6 +3,8 @@
 %define _disable_rebuild_configure 1
 %define _disable_lto 1
 
+%global optflags %{optflags} -Wno-error=too-few-arguments
+
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
 Version:	3.0.6
