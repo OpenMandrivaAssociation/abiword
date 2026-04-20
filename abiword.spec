@@ -18,7 +18,7 @@ Patch3:		abiword-3.0.2-clang.patch
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	automake 
-BuildRequires:	libtool 
+BuildRequires:	libtool-base slibtool
 BuildRequires:	m4
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
