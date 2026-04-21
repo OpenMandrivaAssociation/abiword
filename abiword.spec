@@ -118,6 +118,7 @@ and pkg files.
 # which means that the code has hardcoded -L/usr/lib, i.e. it tries to search in a 32-bit path. 
 # This has to be fixed manually (and it's a lot of work), so we change the linker to bfd or gold or mold.
 export LDFLAGS="-fuse-ld=bfd"
+export CPPFLAGS="%{optflags} -DEVC_FORMAT_VCARD_30=EVC_FORMAT_VCARD_40"
 #autoreconf -fiv
 ./autogen.sh
 enable_dynamic=yes %configure \
@@ -133,7 +134,7 @@ enable_dynamic=yes %configure \
 	--enable-collab-backend-service \
 	--with-gio \
 	--with-goffice
-
+export CPPFLAGS="%{optflags} -DEVC_FORMAT_VCARD_30=EVC_FORMAT_VCARD_40"
 %make_build
 
 %install
