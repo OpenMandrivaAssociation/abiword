@@ -113,6 +113,9 @@ and pkg files.
 %prep
 %autosetup -n AbiWord-release-%{version} -p1
 
+export LD=/usr/bin/g++
+export CXXLD=/usr/bin/g++
+export LDFLAGS="$LDFLAGS -lstdc++"
 %build
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
