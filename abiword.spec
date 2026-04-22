@@ -19,7 +19,7 @@ Patch4:		fix-build-with-eds-3.60.patch
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	automake 
-BuildRequires:	libtool-base slibtool
+BuildRequires:	libtool-base libtool
 BuildRequires:	m4
 BuildRequires:	mold
 BuildRequires:	bison
@@ -122,6 +122,10 @@ export CXX=clang++
 # This has to be fixed manually (and it's a lot of work), so we change the linker to bfd or gold or mold.
 export LDFLAGS="-fuse-ld=mold"
 #autoreconf -fiv
+ln -sf %{_bindir}/libtoolize slibtoolize
+export PATH=$PWD:$PATH
+export LIBTOOLIZE=%{_bindir}/libtoolize
+export LIBTOOL=%{_bindir}/libtool
 ./autogen.sh
 enable_dynamic=yes %configure \
 	--disable-static \
@@ -136,6 +140,10 @@ enable_dynamic=yes %configure \
 	--enable-collab-backend-service \
 	--with-gio \
 	--with-goffice
+ln -sf %{_bindir}/libtoolize slibtoolize
+export PATH=$PWD:$PATH
+export LIBTOOLIZE=%{_bindir}/libtoolize
+export LIBTOOL=%{_bindir}/libtool	
 %make_build
 
 %install
