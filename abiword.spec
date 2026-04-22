@@ -116,8 +116,7 @@ and pkg files.
 export LDFLAGS="$LDFLAGS -lstdc++"
 %build
 export CC=gcc
-export CXX="g++ 
-#-std=gnu++11"
+export CXX="g++ -std=gnu++17"
 # If linked with LLD - crying about: /lib64/crti.o is incompatible with elf32-i386
 # which means that the code has hardcoded -L/usr/lib, i.e. it tries to search in a 32-bit path. 
 # This has to be fixed manually (and it's a lot of work), so we change the linker to bfd or gold or mold.
