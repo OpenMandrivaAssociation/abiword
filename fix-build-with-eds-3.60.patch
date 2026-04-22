@@ -1,0 +1,12 @@
+diff -uraN AbiWord-release-3.0.8/src/text/ptbl/xp/pd_DocumentRDF.cpp omv-AbiWord-release-3.0.8/src/text/ptbl/xp/pd_DocumentRDF.cpp
+--- AbiWord-release-3.0.8/src/text/ptbl/xp/pd_DocumentRDF.cpp	2026-02-18 04:16:18.000000000 +0100
++++ omv-AbiWord-release-3.0.8/src/text/ptbl/xp/pd_DocumentRDF.cpp	2026-04-21 22:18:20.662061906 +0200
+@@ -2034,7 +2034,7 @@
+         set( c, EVC_TEL,      m_phone );
+         set( c, EVC_X_JABBER, m_jabberID );
+ 
+-        gchar* data =  e_vcard_to_string( c, EVC_FORMAT_VCARD_30 );
++        gchar* data =  e_vcard_to_string( c );
+         UT_DEBUGMSG(( "saving vcard to file:%s vcard.len:%ld\n", filename.c_str(), strlen(data) ));
+         std::ofstream oss( filename.c_str() );
+         oss.write( data, strlen(data) );

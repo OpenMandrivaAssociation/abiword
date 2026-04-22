@@ -5,8 +5,8 @@
 
 Summary:	Lean and fast full-featured word processor
 Name:		abiword
-Version:	3.0.6
-Release:	5
+Version:	3.0.8
+Release:	1
 License:	GPLv2+
 Group:		Office
 Url:		https://www.abisource.com/
@@ -14,12 +14,14 @@ Url:		https://www.abisource.com/
 Source0:	https://gitlab.gnome.org/World/AbiWord/-/archive/release-%{version}/AbiWord-release-%{version}.tar.bz2
 Source100:	abiword.rpmlintrc
 Patch3:		abiword-3.0.2-clang.patch
+Patch4:		fix-build-with-eds-3.60.patch
 
 BuildRequires:	asio
 BuildRequires:	autoconf
 BuildRequires:	automake 
-BuildRequires:	libtool 
+BuildRequires:	libtool-base libtool
 BuildRequires:	m4
+BuildRequires:	mold
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
 BuildRequires:  flex
@@ -112,13 +114,19 @@ and pkg files.
 %autosetup -n AbiWord-release-%{version} -p1
 
 %build
-#export CC=gcc
-#export CXX="g++ -std=gnu++11"
+export CC=clang
+export CXX=clang++
+
+
 # If linked with LLD - crying about: /lib64/crti.o is incompatible with elf32-i386
 # which means that the code has hardcoded -L/usr/lib, i.e. it tries to search in a 32-bit path. 
 # This has to be fixed manually (and it's a lot of work), so we change the linker to bfd or gold or mold.
-export LDFLAGS="-fuse-ld=bfd"
+export LDFLAGS="-fuse-ld=mold"
 #autoreconf -fiv
+ln -sf %{_bindir}/libtoolize slibtoolize
+export PATH=$PWD:$PATH
+export LIBTOOLIZE=%{_bindir}/libtoolize
+export LIBTOOL=%{_bindir}/libtool
 ./autogen.sh
 enable_dynamic=yes %configure \
 	--disable-static \
@@ -133,7 +141,10 @@ enable_dynamic=yes %configure \
 	--enable-collab-backend-service \
 	--with-gio \
 	--with-goffice
-
+ln -sf %{_bindir}/libtoolize slibtoolize
+export PATH=$PWD:$PATH
+export LIBTOOLIZE=%{_bindir}/libtoolize
+export LIBTOOL=%{_bindir}/libtool	
 %make_build
 
 %install
